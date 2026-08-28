@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Whitepaper | L2 Protocol</title>
+    <meta name="author" content="L2 Protocol">
+    <meta name="description" content="The L2 Protocol whitepaper. Layer 2 blockchain infrastructure as a service: chain ID 12216, the L2P coin, its fixed supply, the emission schedule, the fee burn, staking and on-chain governance.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://whitepaper.l2protocol.com/">
+    <meta property="og:title" content="L2 Protocol Whitepaper">
+    <meta property="og:site_name" content="L2 Protocol">
+    <meta property="og:url" content="https://whitepaper.l2protocol.com/">
+    <meta property="og:description" content="Layer 2 blockchain infrastructure as a service. Chain ID 12216, native coin L2P, a fixed supply of 166,670,000,000, a ten-year emission schedule and a fee burn on every block.">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://static.l2protocol.com/images/og.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@L2Protocol">
+    <link rel="shortcut icon" href="/images/icon.svg" type="image/svg+xml">
+    <link rel="preload" href="/theme/fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/theme/fonts/anek-telugu-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/theme/css/bootstrap.css">
+    <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="/css/l2protocol-footer.css">
+    <link rel="stylesheet" href="/css/site.css">
+    <script src="/js/theme-init.js"></script>
+    <script defer src="/js/whitepaper.js"></script>
+</head>
+<body data-copy-label="Copy" data-copied-label="Copied">
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<div class="lightDarkSwitch position-fixed d-print-none">
+    <button type="button" id="theme-switch" class="btn btn-primary shadow" aria-label="Toggle light and dark theme" title="Toggle light and dark theme">
+        <i class="fa-solid fa-sun text-white" data-theme-icon="dark" aria-hidden="true" hidden></i>
+        <i class="fa-solid fa-moon text-white" data-theme-icon="light" aria-hidden="true"></i>
+    </button>
+</div>
+
+<header class="doc-header">
+    <div class="container-fluid px-3 px-lg-4 d-flex align-items-center gap-3">
+        <a class="navbar-brand d-flex align-items-center me-2" href="https://l2protocol.com">
+            <img src="/images/icon.svg" class="dark" alt="L2 Protocol" width="30" height="30">
+            <span class="ps-2 brand-text text-nowrap">L2 Protocol</span>
+        </a>
+        <span class="eyebrow d-none d-md-inline">Whitepaper</span>
+
+        <div class="ms-auto d-flex align-items-center gap-2">
+            <a href="https://docs.l2protocol.com" class="nav-link d-none d-lg-inline px-2">Documentation</a>
+            <a href="https://l2pscan.com" class="nav-link d-none d-lg-inline px-2">Explorer</a>
+            <a href="https://governance.l2protocol.com" class="nav-link d-none d-xl-inline px-2">Governance</a>
+            <a href="https://validators.l2protocol.com" class="nav-link d-none d-xl-inline px-2">Validators</a>
+            <button type="button" class="btn btn-sm btn-ghost" data-print>
+                <i class="fa-solid fa-print me-1" aria-hidden="true"></i>Print
+            </button>
+        </div>
+    </div>
+    <div class="read-progress" id="read-progress" aria-hidden="true"></div>
+</header>
+
+<main id="main-content" tabindex="-1">
+    <section class="hero">
+        <div class="container-fluid px-3 px-lg-4">
+            <span class="eyebrow hero-eyebrow">Whitepaper &middot; Version 1.0 (draft)</span>
+            <h1>Layer 2 blockchain infrastructure as a service</h1>
+            <p class="hero-lead">
+                L2 Protocol operates layer 2 blockchains on behalf of other crypto projects. A qualifying project receives
+                an EVM chain of its own, a bridge back to the chain its asset lives on today, a validator set that secures
+                it, a block explorer and on-chain governance with a timelock &mdash; operated for it.
+            </p>
+            <div class="hero-actions">
+                <a href="#summary" class="btn btn-primary btn-lg">Start reading</a>
+                <button type="button" class="btn btn-hero-ghost btn-lg" data-print>
+                    <i class="fa-solid fa-file-arrow-down me-2" aria-hidden="true"></i>Print or save as PDF
+                </button>
+            </div>
+            <div class="hero-facts">
+                <div class="hero-fact">
+                    <span class="hero-fact-label">Chain ID</span>
+                    <span class="hero-fact-value">12216<small>EVM compatible</small></span>
+                </div>
+                <div class="hero-fact">
+                    <span class="hero-fact-label">Native coin</span>
+                    <span class="hero-fact-value">L2P<small>18 decimals</small></span>
+                </div>
+                <div class="hero-fact">
+                    <span class="hero-fact-label">Total supply</span>
+                    <span class="hero-fact-value">166.67B<small>Fixed at genesis</small></span>
+                </div>
+                <div class="hero-fact">
+                    <span class="hero-fact-label">Block time</span>
+                    <span class="hero-fact-value">1.5s<small>~21,038,400 blocks/year</small></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container-fluid px-3 px-lg-4">
+        <button type="button" id="rail-toggle" class="btn btn-sm btn-outline-primary rail-toggle" aria-expanded="false" aria-controls="doc-rail">
+            <i class="fa-solid fa-bars me-1" aria-hidden="true"></i>Contents
+        </button>
+
+        <div class="doc-shell">
+            <nav class="doc-rail d-print-none" id="doc-rail" aria-label="Table of contents">
+                <div class="rail-section">
+                    <div class="rail-heading"><i class="fa-solid fa-compass" aria-hidden="true"></i>Overview</div>
+                    <a class="rail-link" href="#summary"><span class="rail-num">1</span><span>Summary</span></a>
+                    <a class="rail-link" href="#problem"><span class="rail-num">2</span><span>The problem</span></a>
+                    <a class="rail-link" href="#what-it-is"><span class="rail-num">3</span><span>What L2 Protocol is</span></a>
+                    <div class="rail-subs">
+                        <a class="rail-sub" href="#gets">What a project gets</a>
+                        <a class="rail-sub" href="#not-do">What it does not have to do</a>
+                        <a class="rail-sub" href="#commitments">The design commitments</a>
+                    </div>
+                    <a class="rail-link" href="#qualify"><span class="rail-num">4</span><span>How a project gets a chain</span></a>
+                    <div class="rail-subs">
+                        <a class="rail-sub" href="#popular">Be popular enough</a>
+                        <a class="rail-sub" href="#pay">Pay for the service</a>
+                        <a class="rail-sub" href="#community-vote">Win the community vote</a>
+                        <a class="rail-sub" href="#after-qualifying">After qualifying</a>
+                    </div>
+                </div>
+
+                <div class="rail-section">
+                    <div class="rail-heading"><i class="fa-solid fa-cubes" aria-hidden="true"></i>Protocol</div>
+                    <a class="rail-link" href="#architecture"><span class="rail-num">5</span><span>Architecture</span></a>
+                    <div class="rail-subs">
+                        <a class="rail-sub" href="#client">The client</a>
+                        <a class="rail-sub" href="#consensus">Consensus</a>
+                        <a class="rail-sub" href="#finality">Finality</a>
+                        <a class="rail-sub" href="#system-contracts">System contracts</a>
+                        <a class="rail-sub" href="#chain-feed">The chain feed</a>
+                        <a class="rail-sub" href="#bridge">The bridge</a>
+                    </div>
+                    <a class="rail-link" href="#l2p-coin"><span class="rail-num">6</span><span>The L2P coin</span></a>
+                </div>
+
+                <div class="rail-section">
+                    <div class="rail-heading"><i class="fa-solid fa-coins" aria-hidden="true"></i>Economics and governance</div>
+                    <a class="rail-link" href="#tokenomics"><span class="rail-num">7</span><span>Tokenomics</span></a>
+                    <div class="rail-subs">
+                        <a class="rail-sub" href="#allocations">Allocations</a>
+                        <a class="rail-sub" href="#allocation-purpose">What each allocation is for</a>
+                        <a class="rail-sub" href="#fixed-supply">What &ldquo;fixed supply&rdquo; means</a>
+                        <a class="rail-sub" href="#reading-figures">Reading these figures honestly</a>
+                    </div>
+                    <a class="rail-link" href="#emissions"><span class="rail-num">8</span><span>The emission schedule</span></a>
+                    <div class="rail-subs">
+                        <a class="rail-sub" href="#emission-shape">The shape of it</a>
+                        <a class="rail-sub" href="#emission-year-by-year">Year by year</a>
+                        <a class="rail-sub" href="#emission-contract">How the contract does it</a>
+                        <a class="rail-sub" href="#emission-governance">What governance can change</a>
+                        <a class="rail-sub" href="#after-emissions">After emissions end</a>
+                    </div>
+                    <a class="rail-link" href="#fees-burn"><span class="rail-num">9</span><span>Fees and the burn</span></a>
+                    <div class="rail-subs">
+                        <a class="rail-sub" href="#tx-cost">What a transaction costs</a>
+                        <a class="rail-sub" href="#fee-destination">Where the fee goes</a>
+                        <a class="rail-sub" href="#the-burn">The burn</a>
+                    </div>
+                    <a class="rail-link" href="#staking"><span class="rail-num">10</span><span>Staking and validators</span></a>
+                    <div class="rail-subs">
+                        <a class="rail-sub" href="#running-validator">Running a validator</a>
+                        <a class="rail-sub" href="#delegating">Delegating</a>
+                        <a class="rail-sub" href="#undelegating">Undelegating and redelegating</a>
+                        <a class="rail-sub" href="#staking-weight">Governance weight</a>
+                    </div>
+                    <a class="rail-link" href="#governance"><span class="rail-num">11</span><span>Governance</span></a>
+                    <div class="rail-subs">
+                        <a class="rail-sub" href="#parameter-change">What a change actually does</a>
+                        <a class="rail-sub" href="#lifecycle">The lifecycle</a>
+                        <a class="rail-sub" href="#govl2p">govL2P</a>
+                        <a class="rail-sub" href="#what-can-change">What governance can change</a>
+                        <a class="rail-sub" href="#progressive-activation">Progressive activation</a>
+                    </div>
+                </div>
+
+                <div class="rail-section">
+                    <div class="rail-heading"><i class="fa-solid fa-layer-group" aria-hidden="true"></i>Ecosystem</div>
+                    <a class="rail-link" href="#applications"><span class="rail-num">12</span><span>The application suite</span></a>
+                    <a class="rail-link" href="#developers"><span class="rail-num">13</span><span>For developers</span></a>
+                    <div class="rail-subs">
+                        <a class="rail-sub" href="#connecting">Connecting</a>
+                        <a class="rail-sub" href="#rpc">RPC</a>
+                        <a class="rail-sub" href="#rpc-or-explorer">RPC or the explorer API</a>
+                        <a class="rail-sub" href="#deploying">Deploying and verifying</a>
+                        <a class="rail-sub" href="#reading-parameter">Reading a parameter</a>
+                    </div>
+                </div>
+
+                <div class="rail-section">
+                    <div class="rail-heading"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i>Assurance and outlook</div>
+                    <a class="rail-link" href="#security"><span class="rail-num">14</span><span>Security and user safety</span></a>
+                    <div class="rail-subs">
+                        <a class="rail-sub" href="#protocol-security">Protocol security</a>
+                        <a class="rail-sub" href="#operational-infrastructure">Operational infrastructure</a>
+                        <a class="rail-sub" href="#user-safety">User safety</a>
+                    </div>
+                    <a class="rail-link" href="#regulatory"><span class="rail-num">15</span><span>Regulatory position</span></a>
+                    <a class="rail-link" href="#risk"><span class="rail-num">16</span><span>Risk factors and disclaimer</span></a>
+                    <div class="rail-subs">
+                        <a class="rail-sub" href="#risk-factors">Risk factors</a>
+                        <a class="rail-sub" href="#disclaimer">Disclaimer</a>
+                    </div>
+                    <a class="rail-link" href="#roadmap"><span class="rail-num">17</span><span>Roadmap</span></a>
+                </div>
+
+                <div class="rail-section">
+                    <div class="rail-heading"><i class="fa-solid fa-list" aria-hidden="true"></i>Appendices</div>
+                    <a class="rail-link" href="#appendix-a"><span class="rail-num">A</span><span>Parameter reference</span></a>
+                    <a class="rail-link" href="#appendix-b"><span class="rail-num">B</span><span>System contracts</span></a>
+                    <a class="rail-link" href="#appendix-c"><span class="rail-num">C</span><span>Official links</span></a>
+                    <a class="rail-link" href="#appendix-d"><span class="rail-num">D</span><span>Glossary</span></a>
+                </div>
+            </nav>
+
+            <div class="doc-main">
+                <article class="doc-body">
+                    <div class="callout">
+                        <span class="callout-icon"><i class="fa-solid fa-circle-info" aria-hidden="true"></i></span>
+                        <div class="callout-body">
+                            <span class="callout-title">Notice</span>
+                            <p>
+                                This document describes a blockchain protocol and its native coin. It is published for
+                                information. It is not investment advice, it is not an offer to sell or a solicitation to buy
+                                any asset, and nothing in it is a promise about the future price or value of L2P. Every
+                                figure that describes the live network can be read from the chain itself, and you are
+                                encouraged to check it rather than take this document&rsquo;s word for it. The full
+                                disclaimer is in <a href="#disclaimer">Section 16</a>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <section class="doc-section" id="summary">
+                        <span class="section-num">Section 1</span>
+                        <h2>Summary</h2>
+                        <p>
+                            L2 Protocol operates layer 2 blockchains on behalf of other crypto projects. A project whose coin
+                            lives on a chain without smart contract support cannot build lending, staking, governance or any
+                            other on-chain application on top of it. L2 Protocol gives such a project its own EVM chain, a
+                            bridge back to the original chain, a validator set that secures it, a block explorer, and on-chain
+                            governance with a timelock. The project brings a community and a reason for the chain to exist. It
+                            does not build or run the infrastructure.
+                        </p>
+                        <p>
+                            The native coin of every L2 Protocol chain is <strong>L2P</strong>. It pays for gas, it is what
+                            validators and delegators bond as stake, and it is what governance counts when it weighs a vote.
+                            Its total supply is fixed at genesis at <strong>166,670,000,000 L2P</strong>, divided across eight
+                            allocations. There is no mint function and no inflation switch.
+                        </p>
+                        <p>
+                            Thirty percent of that supply, 50 billion L2P, is not held by anyone. It sits in the ValidatorSet
+                            contract and is paid out block by block to the validators securing the chain over approximately
+                            ten years, on a schedule the contract enforces. In the other direction, a fixed share of every
+                            transaction fee is destroyed on every block, permanently.
+                        </p>
+                        <div class="stat-grid">
+                            <div class="stat-tile">
+                                <span class="stat-label">Total supply</span>
+                                <span class="stat-value">166.67B</span>
+                                <span class="stat-note">L2P, fixed at genesis</span>
+                            </div>
+                            <div class="stat-tile">
+                                <span class="stat-label">Emission pool</span>
+                                <span class="stat-value">50.00B</span>
+                                <span class="stat-note">30%, held by a contract</span>
+                            </div>
+                            <div class="stat-tile">
+                                <span class="stat-label">Burn ratio</span>
+                                <span class="stat-value">10%</span>
+                                <span class="stat-note">Of every fee, destroyed</span>
+                            </div>
+                            <div class="stat-tile">
+                                <span class="stat-label">Emission window</span>
+                                <span class="stat-value">~10 yr</span>
+                                <span class="stat-note">Two five-year windows</span>
+                            </div>
+                        </div>
+                        <p>
+                            Every economic parameter of the chain &mdash; the burn ratio, the emission rate, the slashing
+                            amounts, the staking minimums, the governance rules themselves &mdash; is a value that a proposal
+                            can change, and only a proposal can change. Proposals pass a token-weighted vote, then wait in a
+                            timelock, then may be executed by anyone. There is no administrative key that bypasses that path.
+                        </p>
+                        <p>
+                            Three ways exist for a project to qualify for its own chain: be large enough that the demand is
+                            self-evident, pay for the service, or win a community election in which every wallet gets one free
+                            vote per day.
+                        </p>
+                    </section>
+
+                    <section class="doc-section" id="problem">
+                        <span class="section-num">Section 2</span>
+                        <h2>The problem</h2>
+                        <p>
+                            A great many crypto assets live on chains that were never designed to run programs. Bitcoin-derived
+                            chains, older UTXO chains and a long tail of single-purpose networks hold real value and real
+                            communities, and they can move coins from one address to another. What they cannot do is run a
+                            contract.
+                        </p>
+                        <p>
+                            That limitation is not cosmetic. Without smart contracts a project cannot offer staking to its
+                            holders, cannot run a lending market, cannot issue an NFT, cannot hold a binding on-chain vote and
+                            cannot integrate with the wider DeFi ecosystem in any way that does not route through a custodian.
+                            The community around such a coin is left with an asset that can be held and traded, and nothing
+                            else.
+                        </p>
+                        <p>
+                            The obvious remedy is to build a chain. In practice that means forking a client, maintaining
+                            consensus code, designing an economic model, recruiting and coordinating validators, deploying and
+                            auditing system contracts, standing up an explorer, running RPC infrastructure, building a bridge,
+                            and then keeping all of it alive indefinitely. It is a multi-year engineering programme with a
+                            permanent operational cost attached, and it is a poor use of the resources of a project whose
+                            actual value is its community and its idea.
+                        </p>
+                        <p>
+                            The alternative most projects reach for is to issue a wrapped token on an existing smart contract
+                            chain. That works, and it is a real trade: the project inherits somebody else&rsquo;s block space,
+                            somebody else&rsquo;s fee market, somebody else&rsquo;s governance and somebody else&rsquo;s
+                            priorities. The token becomes one of tens of thousands on a general-purpose chain, with no control
+                            over the environment it lives in.
+                        </p>
+                        <p>There is room between those two options. That is where L2 Protocol sits.</p>
+                    </section>
+
+                    <section class="doc-section" id="what-it-is">
+                        <span class="section-num">Section 3</span>
+                        <h2>What L2 Protocol is</h2>
+                        <p>
+                            L2 Protocol is layer 2 infrastructure delivered as a service. A qualifying project receives a chain
+                            of its own, operated for it.
+                        </p>
+
+                        <h3 id="gets">What a project gets</h3>
+                        <ul>
+                            <li><strong>An EVM chain</strong> with full smart contract support, its own chain ID, its own RPC endpoint and its own block explorer.</li>
+                            <li><strong>A bridge</strong> between the project&rsquo;s original chain and the new layer 2, so that holders can move value in both directions.</li>
+                            <li><strong>A validator set</strong> with staking and delegation, so the chain is secured by operators with capital at risk rather than by a permissioned committee.</li>
+                            <li><strong>On-chain governance</strong> with a timelock, so the rules of the chain can change without anyone holding a private key over it.</li>
+                            <li><strong>A fee burn</strong> that removes L2P from circulation on every block.</li>
+                        </ul>
+
+                        <h3 id="not-do">What the project does not have to do</h3>
+                        <p>
+                            It does not run nodes, maintain the consensus client, write or audit the system contracts, operate
+                            the explorer, or keep the bridge alive. All of that is the service. What the project brings is a
+                            community and a reason for the chain to exist.
+                        </p>
+
+                        <h3 id="commitments">The design commitments</h3>
+                        <p>Three commitments shape every technical decision described in the rest of this document.</p>
+                        <p>
+                            <strong>Everything is readable.</strong> Every number the L2 Protocol sites display is an
+                            <code>eth_call</code> against a public endpoint that anyone can make. The burn totals, the
+                            governance tallies, the validator statistics and the emission parameters are all read from the
+                            chain, not from a database that the project controls. A number that cannot be checked is a claim,
+                            and the sites are built so that no number has to be taken on trust.
+                        </p>
+                        <p>
+                            <strong>Nothing has an owner.</strong> The economic parameters are governed. The emission pool sits
+                            in a contract. The burn address has no key. The governance path has a single audited entry point
+                            and no administrative override. Where a privileged address does exist &mdash; the staking protector
+                            and the governance protector, both of which can pause their subsystem &mdash; this document names
+                            it explicitly, because a safety mechanism that is not disclosed is a backdoor.
+                        </p>
+                        <p>
+                            <strong>Limits point one way.</strong> Where a parameter could be abused, its range is bounded in
+                            the contract so that abuse is impossible rather than merely unlikely. The clearest example is the
+                            emission rate: its genesis value of 317 L2P per block is also its ceiling. Governance can slow
+                            issuance down. It can never speed it up.
+                        </p>
+                    </section>
+
+                    <section class="doc-section" id="qualify">
+                        <span class="section-num">Section 4</span>
+                        <h2>How a project gets a chain</h2>
+                        <p>
+                            A project qualifies in one of three ways. All three lead to the same result: the same chain, the
+                            same bridge, the same validator set, the same governance.
+                        </p>
+
+                        <h3 id="popular">4.1 Be popular enough</h3>
+                        <p>
+                            Projects with a large, active holder base qualify on their own numbers. There is nothing to apply
+                            for and nothing to pay. Where the demand for a chain is self-evident, the chain gets built.
+                        </p>
+
+                        <h3 id="pay">4.2 Pay for the service</h3>
+                        <p>
+                            A project that wants a chain now, and does not want to wait for an election, can pay for it. This
+                            buys speed. It does not buy privileges, a different chain, a different validator set or a different
+                            governance model.
+                        </p>
+
+                        <h3 id="community-vote">4.3 Win the community vote</h3>
+                        <p>
+                            Anyone can submit a project at
+                            <a href="https://voting.l2protocol.com">voting.l2protocol.com</a>. Holders vote for the projects
+                            they want to see get a chain, and the projects at the top of the leaderboard qualify.
+                        </p>
+                        <p>The election is deliberately cheap to participate in and expensive to game.</p>
+                        <ul>
+                            <li><strong>One free vote per wallet per day.</strong> The day runs on UTC, so every wallet&rsquo;s vote resets at the same moment worldwide.</li>
+                            <li><strong>A signature, not a transaction.</strong> A voter signs a short message. Nothing leaves the wallet, no fee is paid, and the site gains no access to the wallet. A signature cannot be forged by a script the way a click can, so a vote is attributable to a wallet without anyone being able to cast it on that wallet&rsquo;s behalf.</li>
+                            <li><strong>Anti-farming limits.</strong> Votes are counted per wallet and per browser, a small number of votes is accepted per internet connection per day, and connections from VPNs and datacentres are refused. Honest voters in a shared household or office can encounter these limits, which is the cost of making vote farms expensive.</li>
+                            <li><strong>A live leaderboard.</strong> Standings update as votes arrive, from everyone, in public.</li>
+                        </ul>
+                        <p>
+                            At present every vote weighs the same. A future token is planned that will let holders boost their
+                            voting power, and the voting site states this on its front page.
+                        </p>
+
+                        <h3 id="after-qualifying">4.4 After qualifying</h3>
+                        <p>
+                            Once a project qualifies, its chain is deployed with its own chain ID, RPC endpoint and explorer,
+                            and is added to the network feed that every L2 Protocol site reads. From that moment the chain is
+                            public: anyone can connect a wallet, stake, vote and read the burn.
+                        </p>
+                    </section>
+
+                    <section class="doc-section" id="architecture">
+                        <span class="section-num">Section 5</span>
+                        <h2>Architecture</h2>
+
+                        <h3 id="client">5.1 The client</h3>
+                        <p>
+                            The node software is a fork of <strong>geth</strong>, the reference Go implementation of Ethereum.
+                            The binary is called <code>geth</code>, and everything an operator knows about running an Ethereum
+                            node continues to apply. It is distributed as a container image at
+                            <code>ghcr.io/l2protocol/l2p</code>.
+                        </p>
+                        <p>
+                            Two files accompany it. <code>genesis.json</code>, published at <code>static.l2protocol.com</code>,
+                            describes the first block and the state the chain started from; a node initialised with the wrong
+                            genesis file is on a different chain and will never find a peer. <code>config.toml</code> is the
+                            node&rsquo;s own configuration, of which the values that matter are the network ID
+                            (<code>12216</code>), the peer-to-peer listen address, the peer count and, optionally, the RPC host
+                            and port.
+                        </p>
+                        <p>
+                            Because the client is a geth fork, the chain is bytecode-compatible with the EVM. Contracts written
+                            for Ethereum deploy without modification, and every tool that speaks to an Ethereum node &mdash;
+                            Hardhat, Foundry, ethers, web3, wallets, indexers &mdash; speaks to an L2 Protocol chain by
+                            pointing at the endpoint and the chain ID.
+                        </p>
+
+                        <h3 id="consensus">5.2 Consensus</h3>
+                        <p>
+                            Blocks are produced by an elected validator set on a proof-of-stake-and-authority model. A new
+                            block arrives roughly every <strong>1.5 seconds</strong>, which works out at approximately
+                            <strong>21,038,400 blocks per year</strong>. That block time is the unit in which every duration
+                            parameter on the chain is expressed: one day is 57,600 blocks and one week is 403,200.
+                        </p>
+                        <p>
+                            Validators are elected into the active set each epoch by total stake. The number elected is the
+                            <code>maxElectedValidators</code> parameter, set to <strong>45</strong> at genesis. Of those, a
+                            ceiling on how many actually produce blocks is set by <code>numOfCabinets</code>,
+                            <strong>21</strong> at genesis; where fewer validators exist than that ceiling, all of them
+                            produce. Being bonded is not the same as being elected, and stake behind a validator outside the
+                            elected set earns nothing.
+                        </p>
+                        <p>
+                            Two rotation parameters, <code>maxNumOfCandidates</code> and
+                            <code>maxNumOfWorkingCandidates</code>, allow validators outside the producing set to rotate into
+                            producing slots. Both are set to zero at genesis, which is discussed in
+                            <a href="#progressive-activation">Section 11.5</a>.
+                        </p>
+                        <p>
+                            A validator produces one block per turn at genesis (<code>turnLength</code> reads as 1). The
+                            parameter accepts longer turns of 3 to 64 consecutive blocks, which is relevant to the anti-MEV fee
+                            share described in <a href="#fee-destination">Section 9</a>.
+                        </p>
+
+                        <h3 id="finality">5.3 Finality</h3>
+                        <p>
+                            Blocks carry one of two states. <strong>Unfinalized</strong> means the block is on the chain and,
+                            in normal circumstances, will stay there. <strong>Finalized</strong> means it is settled
+                            permanently and cannot be replaced, whatever happens afterwards. Blocks reach finality within a
+                            short time of being produced.
+                        </p>
+                        <p>
+                            Finality is voted on by validators using <strong>BLS signatures</strong>, which is why a validator
+                            node holds two distinct keys: an ordinary consensus account that signs blocks, and a BLS key whose
+                            public half is the validator&rsquo;s vote address. A precompile at <code>0x&hellip;0066</code>
+                            verifies BLS signatures on-chain, which is how a validator proves it holds the private half of its
+                            vote key at registration.
+                        </p>
+                        <p>
+                            For everyday amounts the practical difference between a recent block and a finalized one is small,
+                            since a transaction in an unfinalized block has essentially already happened. For large amounts, or
+                            where something valuable is handed over in return, waiting for the finalized state is the careful
+                            choice.
+                        </p>
+
+                        <h3 id="system-contracts">5.4 System contracts</h3>
+                        <p>
+                            The rules of the chain live in a set of contracts present in the genesis state at fixed addresses.
+                            Each has one responsibility.
+                        </p>
+                        <div class="table-scroll">
+                            <table>
+                                <thead>
+                                <tr><th>Contract</th><th>Address</th><th class="wrap">Responsible for</th></tr>
+                                </thead>
+                                <tbody>
+                                <tr><td><code>validatorSet</code></td><td class="mono">0x&hellip;1000</td><td class="wrap">The active validator set, block rewards, the emission schedule, the burn ratio</td></tr>
+                                <tr><td><code>slashIndicator</code></td><td class="mono">0x&hellip;1001</td><td class="wrap">Counting missed blocks; reporting downtime and double signing</td></tr>
+                                <tr><td><code>systemReward</code></td><td class="mono">0x&hellip;1002</td><td class="wrap">The reward pool and the operators permitted to draw from it</td></tr>
+                                <tr><td><code>govHub</code></td><td class="mono">0x&hellip;1007</td><td class="wrap">The single entry point through which parameter changes are applied</td></tr>
+                                <tr><td><code>stakeHub</code></td><td class="mono">0x&hellip;2002</td><td class="wrap">Delegation, undelegation, the unbond period, the slashing amounts</td></tr>
+                                <tr><td><code>stakeCredit</code></td><td class="mono">0x&hellip;2003</td><td class="wrap">The pool share a delegator holds in one validator</td></tr>
+                                <tr><td><code>governor</code></td><td class="mono">0x&hellip;2004</td><td class="wrap">Proposals, voting, quorum, the whitelist of executable targets</td></tr>
+                                <tr><td><code>govToken</code></td><td class="mono">0x&hellip;2005</td><td class="wrap">govL2P, the non-transferable voting power minted against staked L2P</td></tr>
+                                <tr><td><code>timelock</code></td><td class="mono">0x&hellip;2006</td><td class="wrap">The delay between a passed proposal and its execution</td></tr>
+                                <tr><td><code>blsPrecompile</code></td><td class="mono">0x&hellip;0066</td><td class="wrap">Verifying BLS signatures</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            Full addresses are in <a href="#appendix-b">Appendix B</a>. Two standard helpers are also in the
+                            genesis state: <code>Multicall3</code> for batching calls, and an ENS registry whose root owner is
+                            preset, supporting a <code>.l2p</code> name space.
+                        </p>
+                        <p>
+                            The reason for <code>govHub</code> deserves a note. A parameter change does not call the target
+                            contract directly. It calls <code>govHub.updateParam(key, value, target)</code>, and the hub
+                            applies the change. That gives the chain one audited path for every parameter change, rather than a
+                            separate setter on each contract with its own access control to get wrong. It also means the
+                            governor needs exactly one whitelisted target: the hub itself.
+                        </p>
+
+                        <h3 id="chain-feed">5.5 The chain feed</h3>
+                        <p>Every L2 Protocol site reads a single JSON feed rather than hardcoding endpoints:</p>
+                        <pre><code>https://chains.l2protocol.com/chains.json</code></pre>
+                        <p>
+                            Each entry carries the chain&rsquo;s name, chain ID, native currency and decimals, RPC endpoints,
+                            block explorers and the addresses of the system contracts on that chain. Integrators are encouraged
+                            to read from the feed rather than paste values into their code, so that a second chain does not
+                            require a second copy of the integration. The feed is what the project&rsquo;s own sites read, so
+                            it is never the stale copy.
+                        </p>
+
+                        <h3 id="bridge">5.6 The bridge</h3>
+                        <p>
+                            Each chain is deployed alongside a bridge to the network the project&rsquo;s asset lives on today,
+                            so that holders can move value in both directions. Bridge design differs by counterparty chain,
+                            since the security model available on a UTXO chain is not the one available on an EVM chain.
+                        </p>
+                        <div class="callout callout-warning">
+                            <span class="callout-icon"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i></span>
+                            <div class="callout-body">
+                                <span class="callout-title">Being completed <span class="pending-badge">In progress</span></span>
+                                <p>
+                                    This section will state, per supported counterparty class: the custody or lock model, the
+                                    attestation or validation mechanism, the finality assumptions on each side, the trust
+                                    assumptions a user takes on, and the audit status of the bridge contracts. A bridge is the
+                                    highest-value target in any multi-chain system. Until that detail is published here, this
+                                    document gives a reader no basis on which to judge the bridge, and none should be assumed.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="doc-section" id="l2p-coin">
+                        <span class="section-num">Section 6</span>
+                        <h2>The L2P coin</h2>
+                        <p>
+                            L2P is the native coin of the chain. It is not a contract balance and there is no ERC20
+                            representing it on its own chain, in the same way that ETH is not an ERC20 on Ethereum. It has
+                            <strong>18 decimals</strong>; one L2P is 10<sup>18</sup> wei.
+                        </p>
+                        <p>It has three functions, and they are not separable.</p>
+                        <p>
+                            <strong>Gas.</strong> Every transaction pays a fee in L2P. Part of that fee is destroyed and part
+                            is paid to the validator that produced the block. Fees are what make block space scarce and
+                            therefore what makes spamming the chain expensive.
+                        </p>
+                        <p>
+                            <strong>Stake.</strong> Validators bond L2P as self-delegation in order to join the set. Delegators
+                            bond L2P behind a validator they choose. Stake is what a validator loses when it misbehaves, and it
+                            is therefore what makes attacking the chain expensive. A chain whose validators have nothing at
+                            risk is secured by nothing but good manners.
+                        </p>
+                        <p>
+                            <strong>Voting weight.</strong> Governance counts the L2P staked behind an address at the snapshot
+                            block of each proposal. Coins bought after a proposal opens carry no weight on it, and coins
+                            sitting unstaked in a wallet carry no weight at all.
+                        </p>
+                        <p>
+                            Supply moves in two directions at once: new L2P is emitted per block to the validators securing the
+                            chain, and L2P is burned on every transaction. Both sides are governed parameters rather than
+                            constants, and both are described in the sections that follow.
+                        </p>
+                    </section>
+
+                    <section class="doc-section" id="tokenomics">
+                        <span class="section-num">Section 7</span>
+                        <h2>Tokenomics</h2>
+                        <p><strong>Total supply: 166,670,000,000 L2P, fixed at genesis.</strong></p>
+                        <p>
+                            Every coin that will ever exist was assigned to one of eight allocations in the genesis state.
+                            There is no mint function anyone can call, no inflation switch and no way to create a coin that was
+                            not accounted for on day one.
+                        </p>
+
+                        <h3 id="allocations">7.1 Allocations</h3>
+                        <ul class="alloc-list">
+                            <li class="alloc-item" style="--alloc-width: 30%"><span class="alloc-name">Validator and staking emissions</span><span class="alloc-share">30.0%</span><span class="alloc-amount">50.00B</span></li>
+                            <li class="alloc-item" style="--alloc-width: 17.5%"><span class="alloc-name">Future public distribution (locked)</span><span class="alloc-share">17.5%</span><span class="alloc-amount">29.17B</span></li>
+                            <li class="alloc-item" style="--alloc-width: 15%"><span class="alloc-name">Ecosystem and grants</span><span class="alloc-share">15.0%</span><span class="alloc-amount">25.00B</span></li>
+                            <li class="alloc-item" style="--alloc-width: 15%"><span class="alloc-name">Team (annual vesting)</span><span class="alloc-share">15.0%</span><span class="alloc-amount">25.00B</span></li>
+                            <li class="alloc-item" style="--alloc-width: 10%"><span class="alloc-name">Treasury and reserve</span><span class="alloc-share">10.0%</span><span class="alloc-amount">16.67B</span></li>
+                            <li class="alloc-item" style="--alloc-width: 6%"><span class="alloc-name">Liquidity (phased)</span><span class="alloc-share">6.0%</span><span class="alloc-amount">10.00B</span></li>
+                            <li class="alloc-item" style="--alloc-width: 4.5%"><span class="alloc-name">Presale round 1 (under &euro;1M)</span><span class="alloc-share">4.5%</span><span class="alloc-amount">7.50B</span></li>
+                            <li class="alloc-item" style="--alloc-width: 2%"><span class="alloc-name">Advisors</span><span class="alloc-share">2.0%</span><span class="alloc-amount">3.33B</span></li>
+                        </ul>
+
+                        <h3 id="allocation-purpose">7.2 What each allocation is for</h3>
+                        <p>
+                            <strong>Validator and staking emissions &mdash; 50 billion.</strong> The largest slice by a wide
+                            margin, and it is not held by anyone. It sits in the <code>validatorSet</code> contract and is paid
+                            out block by block to the validators securing the chain, and through them to the people who
+                            delegate to those validators. It is released over approximately ten years on a schedule the
+                            contract enforces. <a href="#emissions">Section 8</a> sets out the schedule in full.
+                        </p>
+                        <p>
+                            <strong>Future public distribution &mdash; 29.17 billion.</strong> Locked and reserved for
+                            distribution at a later date. Locked means what it says: it is not circulating and it is not being
+                            sold into the market today.
+                        </p>
+                        <p>
+                            <strong>Ecosystem and grants &mdash; 25 billion.</strong> For the projects, tools and integrations
+                            built on the chain. This is the allocation that pays for the chain being worth using rather than
+                            merely existing.
+                        </p>
+                        <p>
+                            <strong>Team &mdash; 25 billion.</strong> Vesting annually rather than unlocking at once, so that
+                            the people building the protocol are paid over the years during which they keep building it.
+                        </p>
+                        <p>
+                            <strong>Treasury and reserve &mdash; 16.67 billion.</strong> Working capital and a buffer for what
+                            nobody planned for.
+                        </p>
+                        <p>
+                            <strong>Liquidity &mdash; 10 billion.</strong> Phased in rather than deployed in a single event, so
+                            that trading L2P is possible without one deployment setting the price on its own.
+                        </p>
+                        <p>
+                            <strong>Presale round 1 &mdash; 7.5 billion.</strong> A first round, deliberately small at under
+                            one million euro. Keeping an early raise modest relative to the size of the chain keeps the share
+                            of supply sold early low, and means the project is not funded principally by the people least
+                            equipped to judge the risk. <a href="#regulatory">Section 15</a> covers the regulatory framing of
+                            that threshold.
+                        </p>
+                        <p>
+                            <strong>Advisors &mdash; 3.33 billion.</strong> The smallest allocation, for the people advising
+                            the project.
+                        </p>
+
+                        <h3 id="fixed-supply">7.3 What &ldquo;fixed supply&rdquo; does and does not mean</h3>
+                        <p>Three clarifications, because the phrase is routinely oversold in this industry.</p>
+                        <p>
+                            <strong>It does not mean the number goes down.</strong> The fee burn moves coins to an address that
+                            nobody controls, permanently out of circulation. Those coins are still counted in the total supply
+                            figure. Circulating supply falls; total supply does not.
+                        </p>
+                        <p>
+                            <strong>It does not mean everything is circulating.</strong> Most of the supply starts locked,
+                            vesting or held in a contract. Emissions arrive over ten years, team coins vest annually, the
+                            future public distribution is locked and liquidity is phased. What circulates today is a fraction
+                            of the total, and it grows on published schedules rather than on discretionary decisions.
+                        </p>
+                        <p>
+                            <strong>It does mean nobody can print more.</strong> The allocations were set in the genesis state.
+                            There is no governance parameter that raises the total, and no key that mints.
+                        </p>
+
+                        <h3 id="reading-figures">7.4 Reading these figures honestly</h3>
+                        <p>
+                            A percentage of a supply says nothing about a price. It says how the coins are divided and roughly
+                            when they arrive, which is what a reader needs in order to reason about the rest independently.
+                        </p>
+                        <p>
+                            The two figures worth watching over time are the emissions, which follow a public schedule that can
+                            be checked block by block, and the burn, which runs against them and is driven by how much the
+                            chain is actually used. Both are visible on-chain, and neither depends on anyone keeping a promise.
+                        </p>
+                    </section>
+
+                    <section class="doc-section" id="emissions">
+                        <span class="section-num">Section 8</span>
+                        <h2>The emission schedule</h2>
+                        <p>
+                            The 50 billion L2P emission pool is paid out per block on a schedule the <code>validatorSet</code>
+                            contract enforces.
+                        </p>
+
+                        <h3 id="emission-shape">8.1 The shape of it</h3>
+                        <p>
+                            <strong>Year one pays nothing.</strong> Emission starts at block <strong>21,038,400</strong> rather
+                            than at block zero, because the presale runs through the first chain year. Blocks before the start
+                            block emit nothing at all, which is why year one is empty rather than partially paid.
+                        </p>
+                        <p>
+                            <strong>Then 317 L2P per block for five years.</strong> Approximately 6.67 billion per year.
+                        </p>
+                        <p>
+                            <strong>Then the rate halves to 158 L2P per block for another five years.</strong> Approximately
+                            3.32 billion per year.
+                        </p>
+                        <p>
+                            <strong>Then it stops.</strong> After the second halving window the contract emits nothing further,
+                            because the pool is empty.
+                        </p>
+
+                        <h3 id="emission-year-by-year">8.2 Year by year</h3>
+                        <div class="table-scroll">
+                            <table class="tabular">
+                                <thead>
+                                <tr><th>Year</th><th>Blocks</th><th class="num">Rate</th><th class="num">Emission</th><th class="num">Cumulative</th><th class="num">Pool left</th><th class="num">Paid</th></tr>
+                                </thead>
+                                <tbody>
+                                <tr><td>Y1</td><td class="mono">0 &ndash; 21,038,400</td><td class="num">0</td><td class="num">0.00B</td><td class="num">0.00B</td><td class="num">50.00B</td><td class="num">0.0%</td></tr>
+                                <tr><td>Y2</td><td class="mono">21,038,400 &ndash; 42,076,800</td><td class="num">317</td><td class="num">6.67B</td><td class="num">6.67B</td><td class="num">43.33B</td><td class="num">13.3%</td></tr>
+                                <tr><td>Y3</td><td class="mono">42,076,800 &ndash; 63,115,200</td><td class="num">317</td><td class="num">6.67B</td><td class="num">13.34B</td><td class="num">36.66B</td><td class="num">26.7%</td></tr>
+                                <tr><td>Y4</td><td class="mono">63,115,200 &ndash; 84,153,600</td><td class="num">317</td><td class="num">6.67B</td><td class="num">20.01B</td><td class="num">29.99B</td><td class="num">40.0%</td></tr>
+                                <tr><td>Y5</td><td class="mono">84,153,600 &ndash; 105,192,000</td><td class="num">317</td><td class="num">6.67B</td><td class="num">26.68B</td><td class="num">23.32B</td><td class="num">53.4%</td></tr>
+                                <tr><td>Y6</td><td class="mono">105,192,000 &ndash; 126,230,400</td><td class="num">317</td><td class="num">6.67B</td><td class="num">33.35B</td><td class="num">16.65B</td><td class="num">66.7%</td></tr>
+                                <tr><td>Y7</td><td class="mono">126,230,400 &ndash; 147,268,800</td><td class="num">158</td><td class="num">3.32B</td><td class="num">36.67B</td><td class="num">13.33B</td><td class="num">73.3%</td></tr>
+                                <tr><td>Y8</td><td class="mono">147,268,800 &ndash; 168,307,200</td><td class="num">158</td><td class="num">3.32B</td><td class="num">39.99B</td><td class="num">10.01B</td><td class="num">80.0%</td></tr>
+                                <tr><td>Y9</td><td class="mono">168,307,200 &ndash; 189,345,600</td><td class="num">158</td><td class="num">3.32B</td><td class="num">43.32B</td><td class="num">6.68B</td><td class="num">86.6%</td></tr>
+                                <tr><td>Y10</td><td class="mono">189,345,600 &ndash; 210,384,000</td><td class="num">158</td><td class="num">3.32B</td><td class="num">46.64B</td><td class="num">3.36B</td><td class="num">93.3%</td></tr>
+                                <tr><td>Y11</td><td class="mono">210,384,000 &ndash; 231,422,400</td><td class="num">158</td><td class="num">3.32B</td><td class="num">49.97B</td><td class="num">0.03B</td><td class="num">99.9%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            The halving lands at block <strong>126,230,400</strong>, which is 105,192,000 blocks after emission
+                            began. The second window ends at block <strong>231,422,400</strong>, by which point the pool is all
+                            but empty.
+                        </p>
+
+                        <h3 id="emission-contract">8.3 How the contract does it</h3>
+                        <p>Four values drive the entire table, and all four are readable on-chain.</p>
+                        <div class="table-scroll">
+                            <table>
+                                <thead>
+                                <tr><th>Parameter</th><th>Value at genesis</th><th class="wrap">What it does</th></tr>
+                                </thead>
+                                <tbody>
+                                <tr><td><code>emissionRatePerBlock</code></td><td>317 L2P</td><td class="wrap">Created per block in the first window</td></tr>
+                                <tr><td><code>emissionHalvingPeriod</code></td><td>105,192,000 blocks</td><td class="wrap">Length of a window, about five years</td></tr>
+                                <tr><td><code>emissionMaxHalvings</code></td><td>2</td><td class="wrap">Windows paid before emission stops</td></tr>
+                                <tr><td>Emission pool</td><td>50,000,000,000 L2P</td><td class="wrap">The total the contract can ever pay out</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            Each block, the contract determines which window it is in, halves the rate once per completed
+                            window, and pays the resulting amount to the active validators in proportion to their voting power.
+                            Jailed validators receive nothing. Once the pool is empty, or once the window counter passes the
+                            maximum, payments stop regardless of anything else.
+                        </p>
+
+                        <h3 id="emission-governance">8.4 What governance can and cannot do to it</h3>
+                        <p>
+                            The rate, the halving period and the number of halvings are governance parameters, so a proposal
+                            that passes and clears the timelock can adjust them within limits the contract enforces:
+                        </p>
+                        <ul>
+                            <li>the rate may be set anywhere from <strong>1 to 317</strong> L2P per block;</li>
+                            <li>the halving period may not be shorter than <strong>1,000,000 blocks</strong>;</li>
+                            <li>the number of halvings must stay between <strong>1 and 20</strong>.</li>
+                        </ul>
+                        <p>
+                            The first limit is the important one. 317 is the genesis rate and also the ceiling. Governance can
+                            slow issuance down and can never speed it up.
+                        </p>
+                        <p>
+                            What cannot be changed at all is the pool. The 50 billion is what the contract holds, and no
+                            parameter can make it pay out more than it has. Governance controls the pace; it does not control
+                            the total.
+                        </p>
+
+                        <h3 id="after-emissions">8.5 After emissions end</h3>
+                        <p>
+                            Validators continue to earn from transaction fees, which is the other half of validator income and
+                            the half that does not run out. What ends is the creation of new coins. From that point the only
+                            mechanism changing the circulating supply is the burn, which runs in the opposite direction.
+                        </p>
+                    </section>
+
+                    <section class="doc-section" id="fees-burn">
+                        <span class="section-num">Section 9</span>
+                        <h2>Fees and the burn</h2>
+
+                        <h3 id="tx-cost">9.1 What a transaction costs</h3>
+                        <p>A fee is gas used multiplied by gas price, and nothing else goes into it.</p>
+                        <p>
+                            <strong>Gas used</strong> is a measure of work. A plain transfer of L2P is always 21,000 gas
+                            because it is always the same work. A contract call depends on what the contract does.
+                        </p>
+                        <p>
+                            <strong>Gas price</strong> is what is paid per unit of gas, quoted in gwei, where one gwei is a
+                            billionth of an L2P.
+                        </p>
+                        <p>
+                            The chain has a <strong>minimum gas price of 0.1 gwei</strong>, and while the chain is quiet that
+                            is what a user pays. A plain transfer at that price costs <strong>0.0000021 L2P</strong>. A block
+                            holds roughly 70 million gas, which is thousands of transfers, so a quiet chain has no meaningful
+                            competition for block space. Gas prices rise when the chain is busy, because everyone is bidding
+                            for room in the same block.
+                        </p>
+                        <p>
+                            Four things about fees are worth stating plainly because they surprise people on every chain:
+                        </p>
+                        <ul>
+                            <li>A failed transaction still costs the fee. The network did the work of trying, and that work is what the fee pays for. No coins move and the state reverts.</li>
+                            <li>An address cannot send its entire balance, because the fee must come out of the same balance.</li>
+                            <li>The gas limit is what a wallet reserves; the charge is for gas actually used. A transaction that exhausts its limit fails and is charged for the whole limit, because all of it was spent trying.</li>
+                            <li>The amount sent has no bearing on the fee. Sending one coin and sending a million coins cost the same, because both are the same work.</li>
+                        </ul>
+
+                        <h3 id="fee-destination">9.2 Where the fee goes</h3>
+                        <p>The chain splits every fee three ways in the block that includes the transaction.</p>
+                        <div class="table-scroll">
+                            <table>
+                                <thead>
+                                <tr><th>Share</th><th>Genesis</th><th class="wrap">Destination</th></tr>
+                                </thead>
+                                <tbody>
+                                <tr><td><code>burnRatio</code></td><td>1000 (10%)</td><td class="wrap">Destroyed</td></tr>
+                                <tr><td><code>systemRewardBaseRatio</code></td><td>625 (6.25%)</td><td class="wrap">The system reward pot, which funds fast finality and pays whistleblowers</td></tr>
+                                <tr><td><code>systemRewardAntiMEVRatio</code></td><td>0 (off)</td><td class="wrap">An additional system reward share that ramps across a producer&rsquo;s turn</td></tr>
+                                <tr><td>Remainder</td><td>83.75%</td><td class="wrap">The validator that produced the block, and through it its delegators</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            The three shares are expressed in basis points over 10,000 and together may not exceed 100%.
+                            Whatever is left goes to the block producer.
+                        </p>
+                        <p>
+                            The anti-MEV share is designed to discourage a producer from reordering transactions for profit by
+                            taxing later blocks in a long turn. It does nothing while a producer&rsquo;s turn is a single
+                            block, which is the genesis configuration, and it is therefore switched off.
+                        </p>
+
+                        <h3 id="the-burn">9.3 The burn</h3>
+                        <p>The burn destination is:</p>
+                        <pre><code>0x000000000000000000000000000000000000dEaD</code></pre>
+                        <p>
+                            There is no private key for this address. Coins sent there are gone in the only sense that matters
+                            on a blockchain: no signature can ever move them.
+                        </p>
+                        <p>
+                            Because the burn share is a parameter rather than a constant, it changes only through governance: a
+                            proposal calling <code>govHub.updateParam("burnRatio", &hellip;)</code> that passes its vote and
+                            clears the timelock. No individual can turn the burn up or down.
+                        </p>
+                        <p>
+                            <strong>The burn is usage-driven.</strong> A quiet chain burns almost nothing; a busy chain burns a
+                            great deal. It is not a schedule that runs whether or not anyone shows up, which means the burn
+                            rate is an honest signal of how much the chain is actually being used.
+                        </p>
+                        <p>It is not a promise about price. The burn removes coins. What that is worth is a matter for the market.</p>
+                        <p>
+                            Every burn figure is published at <a href="https://l2pburn.info">l2pburn.info</a>, which reads the
+                            burn address balance, the burn ratio and the last indexed block directly from the chain, and shows
+                            the burn per day. Each figure there can be checked independently against the block explorer.
+                        </p>
+                    </section>
+
+                    <section class="doc-section" id="staking">
+                        <span class="section-num">Section 10</span>
+                        <h2>Staking, delegation and validator economics</h2>
+
+                        <h3 id="running-validator">10.1 Running a validator</h3>
+                        <p>
+                            A validator produces blocks. To join the set, an operator bonds L2P as self-delegation, registers
+                            the node with its consensus and BLS keys, and stays online.
+                        </p>
+                        <p>
+                            <strong>What it requires.</strong> A machine that is always on, because downtime is punished rather
+                            than forgiven. A fast disk with room to grow, because the chain writes constantly and reads
+                            randomly. A stable connection with the peer-to-peer port reachable from the internet. Someone who
+                            watches it, because the chain does not send a message when a node stops.
+                        </p>
+                        <p>
+                            <strong>What it earns.</strong> A share of the gas fees on the blocks it produces, minus the
+                            portion that is burned and the portion routed to the system reward pot, and block emissions on the
+                            schedule in <a href="#emissions">Section 8</a>. The operator keeps a commission on what its
+                            delegators earn; the rest is theirs.
+                        </p>
+                        <p>
+                            <strong>What it risks.</strong> Two behaviours cost stake, and the amounts are set against the
+                            self-stake rather than against pending rewards, which is the point.
+                        </p>
+                        <div class="table-scroll">
+                            <table>
+                                <thead>
+                                <tr><th class="wrap">Parameter</th><th class="num">L2P at genesis</th></tr>
+                                </thead>
+                                <tbody>
+                                <tr><td class="wrap">Minimum self-delegation</td><td class="num">7,000,000</td></tr>
+                                <tr><td class="wrap">Burned when a validator is created</td><td class="num">3,500</td></tr>
+                                <tr><td class="wrap">Slash for downtime</td><td class="num">35,000</td></tr>
+                                <tr><td class="wrap">Slash for a double sign</td><td class="num">700,000</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            A validator must bond seven million L2P of its own before it may run at all. Downtime costs half a
+                            percent of that floor; a double sign costs ten percent. These are not fines that can be absorbed as
+                            a cost of doing business.
+                        </p>
+                        <p>
+                            <strong>Downtime</strong> is measured in missed blocks. Passing <code>misdemeanorThreshold</code>
+                            (50 at genesis) redistributes a validator&rsquo;s pending rewards. Passing
+                            <code>felonyThreshold</code> (150) removes it from the set, applies the downtime slash and jails it
+                            for <code>downtimeJailTime</code> (2 days).
+                        </p>
+                        <p>
+                            <strong>Double signing</strong> &mdash; signing two conflicting blocks &mdash; is treated as a
+                            felony: the larger slash and a 30-day jail. There is no honest reason to do it, so the punishment
+                            does not attempt to be gentle.
+                        </p>
+                        <p>
+                            Slashed stake is taken from self-delegation first. That is why the self-delegation figure matters
+                            as much to a delegator as it does to the operator.
+                        </p>
+                        <div class="callout callout-danger">
+                            <span class="callout-icon"><i class="fa-solid fa-key" aria-hidden="true"></i></span>
+                            <div class="callout-body">
+                                <span class="callout-title">The most expensive operator mistake</span>
+                                <p>
+                                    Running two validator nodes on the same consensus keys. To the chain, two nodes signing
+                                    with the same key is indistinguishable from a double sign, and it carries the heaviest
+                                    penalty available. It is usually made while trying to be careful about redundancy.
+                                </p>
+                            </div>
+                        </div>
+                        <p>
+                            <strong>Maintenance</strong> exists so that an operator can upgrade without being punished for the
+                            downtime. <code>maxNumOfMaintaining</code> (3 at genesis) caps how many validators may be in
+                            maintenance simultaneously, and at least one producing validator must always remain.
+                            <code>maintainSlashScale</code> (2) divides the missed-block count charged when a validator leaves
+                            maintenance. Overstaying maintenance costs the operator.
+                        </p>
+                        <p>
+                            Malicious voting &mdash; a finality violation &mdash; carries the same penalty as a double sign,
+                            but the check that detects it is switched off at genesis.
+                            <a href="#progressive-activation">Section 11.5</a> explains why.
+                        </p>
+
+                        <h3 id="delegating">10.2 Delegating</h3>
+                        <p>
+                            Securing the chain does not require running a node. A delegator sends L2P to the stake hub, naming
+                            a validator, and receives <strong>stake credit</strong> representing a share of that
+                            validator&rsquo;s pool. Rewards are added to the pool, so a delegator&rsquo;s share grows without
+                            any claim transaction.
+                        </p>
+                        <p>
+                            Delegated stake is at risk. If the validator is slashed, the pool shrinks and so does every
+                            delegator&rsquo;s share. The right mental model is choosing a business partner, not choosing a
+                            lottery ticket.
+                        </p>
+                        <p>
+                            Four things are worth checking before delegating, and all four are published per validator at
+                            <a href="https://validators.l2protocol.com">validators.l2protocol.com</a>:
+                        </p>
+                        <ul>
+                            <li><strong>Commission</strong> &mdash; what the validator keeps of a delegator&rsquo;s rewards.</li>
+                            <li><strong>Self-delegation</strong> &mdash; how much of the operator&rsquo;s own capital is at risk. A validator with nothing of its own to lose is asking delegators to carry all of it.</li>
+                            <li><strong>Uptime</strong> &mdash; missed blocks are missed rewards, and enough of them are a slash.</li>
+                            <li><strong>Elected or not</strong> &mdash; stake behind a validator outside the elected set earns nothing.</li>
+                        </ul>
+
+                        <h3 id="undelegating">10.3 Undelegating and redelegating</h3>
+                        <p>
+                            Undelegation is not instant. Stake enters an <strong>unbond period</strong> of 7 days at genesis,
+                            and only after it expires can the coins be claimed. The delay exists so that a validator cannot
+                            misbehave and let its backers exit before the slash lands.
+                        </p>
+                        <p>
+                            Stake can instead be moved directly to another validator without waiting, at the cost of
+                            <code>redelegateFeeRate</code>, set at genesis to 2 over a base of 100,000, or 0.002%, paid to the
+                            destination validator.
+                        </p>
+                        <p>
+                            The smallest permitted delegation or redelegation is <code>minDelegationL2PChange</code>, 3,500 L2P
+                            at genesis, which keeps dust off the chain.
+                        </p>
+
+                        <h3 id="staking-weight">10.4 Governance weight</h3>
+                        <p>
+                            Delegated L2P carries governance weight, measured at the snapshot block of each proposal. Staking
+                            does not remove a holder from the conversation about where the chain goes next; it is the only
+                            thing that puts them in it.
+                        </p>
+                    </section>
+
+                    <section class="doc-section" id="governance">
+                        <span class="section-num">Section 11</span>
+                        <h2>Governance</h2>
+                        <p>
+                            The chain&rsquo;s parameters are not owned by anyone. They are changed by proposals that pass a
+                            vote and then wait in a timelock before taking effect.
+                        </p>
+
+                        <h3 id="parameter-change">11.1 What a parameter change actually does</h3>
+                        <p>
+                            The dials governance turns are the economics and the rules of the chain, not the code. Changing one
+                            changes what the chain does from the next block onwards, for everybody, without anyone upgrading
+                            anything.
+                        </p>
+                        <p>
+                            Take the burn. Every transaction pays a fee, and a fixed share of that fee is destroyed. Suppose
+                            that share stands at 10% and the community concludes that L2P is being issued faster than it is
+                            being removed. One proposal, one number, and from the moment it executes every transaction on the
+                            chain destroys a quarter of its fee instead of a tenth. Nobody had to agree to it individually, no
+                            contract was redeployed, and the validators who now earn less had one vote each on it like everyone
+                            else.
+                        </p>
+                        <p>Every parameter change is a trade of that shape:</p>
+                        <ul>
+                            <li>Raising <code>minSelfDelegationL2P</code> forces anyone running a validator to put more of their own capital at risk. The set becomes smaller and its operators more careful.</li>
+                            <li>Shortening <code>unbondPeriod</code> returns coins faster after undelegation, and makes it correspondingly easier for a validator&rsquo;s backers to leave before a punishment lands.</li>
+                            <li>Raising <code>quorumNumerator</code> requires more of the supply to turn out for a vote to count, which protects against a handful of holders deciding things and, set too high, means nothing passes at all.</li>
+                        </ul>
+                        <p>
+                            The vote is on the trade, not on the number. That is why a proposal&rsquo;s description matters as
+                            much as its value.
+                        </p>
+
+                        <h3 id="lifecycle">11.2 The lifecycle</h3>
+                        <p>
+                            <strong>1. Propose.</strong> Anyone holding at least <code>proposalThreshold</code> govL2P (700,000
+                            at genesis) may submit. A proposal is either a parameter change, which is executable, or a signal
+                            proposal, which records what the community wants without changing anything by itself.
+                        </p>
+                        <p>
+                            <strong>2. Vote.</strong> Voting opens after <code>votingDelay</code> (0 blocks at genesis, so
+                            immediately) and stays open for <code>votingPeriod</code> (403,200 blocks, 7 days). Voting weight
+                            is the govL2P behind an address at the proposal&rsquo;s snapshot block, so coins acquired after the
+                            proposal opened do not vote.
+                        </p>
+                        <p>
+                            A voter may vote for, against, or abstain. Abstaining is not the same as not voting: it counts
+                            towards quorum without taking a side. A proposal passes when it clears quorum
+                            (<code>quorumNumerator</code>, 10% of all govL2P at genesis) and the votes for exceed the votes
+                            against. <code>minPeriodAfterQuorum</code> (57,600 blocks, 1 day) keeps voting open for a further
+                            period after quorum is reached, so that nothing is pushed over the line at the last second.
+                        </p>
+                        <p>
+                            <strong>3. Queue.</strong> A passed proposal is queued into the timelock and cannot execute yet.
+                            <code>minDelay</code> is 24 hours at genesis, with a ceiling of 14 days. The delay is deliberate:
+                            it gives everyone who disagrees time to react, exit or organise before the change lands.
+                        </p>
+                        <p>
+                            The governor only accepts whitelisted targets. A proposal calling anything else can pass its vote
+                            and still never execute, which is by design. In practice the only whitelisted target is
+                            <code>govHub</code>, for the reason given in <a href="#system-contracts">Section 5.4</a>.
+                        </p>
+                        <p>
+                            <strong>4. Execute.</strong> Once the timelock expires, <strong>anyone</strong> may execute the
+                            proposal. Not only the proposer, and not an administrator. Execution is permissionless, so a passed
+                            proposal cannot be quietly dropped.
+                        </p>
+
+                        <h3 id="govl2p">11.3 govL2P</h3>
+                        <p>
+                            Voting power is counted in <strong>govL2P</strong>, held automatically for every L2P staked. It is
+                            minted on delegation and burned on undelegation, it cannot be transferred to anyone, and it exists
+                            for no purpose other than governance. Coins sitting unstaked in a wallet carry no weight at all.
+                        </p>
+                        <p>
+                            This ties governance weight to capital that is locked behind a validator and exposed to slashing,
+                            rather than to a balance that can be borrowed for the duration of a vote and returned afterwards.
+                        </p>
+
+                        <h3 id="what-can-change">11.4 What governance can change</h3>
+                        <p>
+                            Every parameter the chain exposes to a vote is listed in
+                            <a href="#appendix-a">Appendix A</a>, grouped by subsystem: block fees, emissions, block
+                            production, maintenance, staking and delegation, punishment, governance itself, and the system
+                            reward operators. Each carries its genesis value and the range the contract will accept.
+                        </p>
+                        <p>
+                            Two conventions are worth internalising. Percentages are written as whole numbers over a base, and
+                            the base is not the same everywhere: block fee shares and commission run over 10,000, so
+                            <code>1000</code> is 10%, while the redelegation fee runs over 100,000, so <code>2</code> is
+                            0.002%. Durations are always in blocks, at 1.5 seconds per block.
+                        </p>
+                        <p>
+                            Every range is enforced by the contract. A value outside it can pass its vote and then fail on
+                            execution. Several parameters are also bound to each other &mdash; the two slash amounts, the two
+                            jail times, the two downtime thresholds and the three fee shares must each stay in the correct
+                            order &mdash; so changing one of a pair usually means proposing the other as well.
+                        </p>
+                        <div class="callout callout-warning">
+                            <span class="callout-icon"><i class="fa-solid fa-user-shield" aria-hidden="true"></i></span>
+                            <div class="callout-body">
+                                <span class="callout-title">Two privileged addresses exist and are named here deliberately</span>
+                                <p>
+                                    <code>stakeHubProtector</code> may pause staking and maintain the blacklist.
+                                    <code>governorProtector</code> may pause governance. Both are set at genesis and both are
+                                    themselves governance parameters, so a proposal can move either of them. They are safety
+                                    mechanisms against an active exploit, and they are a meaningful amount of trust. A reader
+                                    evaluating this protocol should weigh them as such.
+                                </p>
+                            </div>
+                        </div>
+
+                        <h3 id="progressive-activation">11.5 Progressive activation</h3>
+                        <p>
+                            Three things ship deliberately inactive. None is an oversight, and each has a moment at which it
+                            should be switched on.
+                        </p>
+                        <p>
+                            <strong>Governance itself.</strong> The governor accepts nothing at all until
+                            <strong>35,000,000 govL2P</strong> exists, which is five fully staked validators. Until that point
+                            no proposal can be submitted, which prevents a small amount of stake from steering the chain in its
+                            first weeks. It opens on its own the moment the threshold is passed. Nobody has to unlock it and
+                            nobody can unlock it early.
+                        </p>
+                        <p>
+                            <strong>Candidate rotation.</strong> <code>maxNumOfCandidates</code> and
+                            <code>maxNumOfWorkingCandidates</code> are both zero. Below 21 validators the rotation code is
+                            never reached, so setting values now would change nothing observable, and choosing them later means
+                            choosing them against real participation. This must be configured before the set grows past 21
+                            validators: after that point every validator outside the top 21 is permanently excluded from block
+                            production until it is.
+                        </p>
+                        <p>
+                            <strong>Malicious vote slashing.</strong> <code>enableMaliciousVoteSlash</code> is false, so
+                            evidence of a finality violation is rejected. Verifying that evidence is intricate, and a fault in
+                            that verification punishes honest validators. Double-sign slashing protects the chain in the
+                            meantime. It is intended to be enabled once losing two validators simultaneously is survivable for
+                            the set.
+                        </p>
+                        <p>
+                            All three depend on governance, and governance depends on the staking threshold. The order is not
+                            accidental: the chain decentralises as the stake securing it grows, rather than on a calendar.
+                        </p>
+                    </section>
+
+                    <section class="doc-section" id="applications">
+                        <span class="section-num">Section 12</span>
+                        <h2>The application suite</h2>
+                        <p>
+                            The protocol is accompanied by a set of applications. Each is public, each reads from the chain,
+                            and none is required in order to use the chain.
+                        </p>
+                        <div class="link-grid">
+                            <a class="link-card" href="https://l2pscan.com">
+                                <span class="link-card-title"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>Block explorer</span>
+                                <span class="link-card-url">l2pscan.com</span>
+                                <p>Blocks, transactions, addresses, tokens and verified contract source, with a public API that needs no key.</p>
+                            </a>
+                            <a class="link-card" href="https://validators.l2protocol.com">
+                                <span class="link-card-title"><i class="fa-solid fa-server" aria-hidden="true"></i>Staking and validators</span>
+                                <span class="link-card-url">validators.l2protocol.com</span>
+                                <p>Delegation, undelegation, redelegation and claiming, plus commission, self-delegation, uptime and elected status per operator.</p>
+                            </a>
+                            <a class="link-card" href="https://governance.l2protocol.com">
+                                <span class="link-card-title"><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i>Governance</span>
+                                <span class="link-card-url">governance.l2protocol.com</span>
+                                <p>Reading, submitting, voting on, queuing and executing proposals, with live tallies and timelock state.</p>
+                            </a>
+                            <a class="link-card" href="https://voting.l2protocol.com">
+                                <span class="link-card-title"><i class="fa-solid fa-check-to-slot" aria-hidden="true"></i>Community vote</span>
+                                <span class="link-card-url">voting.l2protocol.com</span>
+                                <p>The election that decides which project gets the next chain, with one free signed vote per wallet per day.</p>
+                            </a>
+                            <a class="link-card" href="https://l2pburn.info">
+                                <span class="link-card-title"><i class="fa-solid fa-fire" aria-hidden="true"></i>Burn overview</span>
+                                <span class="link-card-url">l2pburn.info</span>
+                                <p>The burn address balance, the current burn ratio, the last indexed block and the burn per day.</p>
+                            </a>
+                            <a class="link-card" href="https://l2stats.dev">
+                                <span class="link-card-title"><i class="fa-solid fa-wave-square" aria-hidden="true"></i>Network status</span>
+                                <span class="link-card-url">l2stats.dev</span>
+                                <p>Node and network health, where validator operators register their nodes so the set can be seen at a glance.</p>
+                            </a>
+                            <a class="link-card" href="https://support.l2protocol.com">
+                                <span class="link-card-title"><i class="fa-solid fa-life-ring" aria-hidden="true"></i>Support</span>
+                                <span class="link-card-url">support.l2protocol.com</span>
+                                <p>Ticketing with a person on the other end. Support answers tickets that a user opened; it never initiates contact.</p>
+                            </a>
+                            <a class="link-card" href="https://docs.l2protocol.com">
+                                <span class="link-card-title"><i class="fa-solid fa-book" aria-hidden="true"></i>Documentation</span>
+                                <span class="link-card-url">docs.l2protocol.com</span>
+                                <p>Operational documentation for users, delegators, operators and developers, with a live JSON-RPC reference.</p>
+                            </a>
+                        </div>
+                        <p>
+                            Behind these sit the services that tooling talks to: the RPC endpoint at
+                            <code>rpc.l2protocol.com</code>, the chain feed at <code>chains.l2protocol.com</code>, static files
+                            and the genesis at <code>static.l2protocol.com</code>, and validator profiles at
+                            <code>validator-directory.l2protocol.com</code>.
+                        </p>
+                    </section>
+
+                    <section class="doc-section" id="developers">
+                        <span class="section-num">Section 13</span>
+                        <h2>For developers</h2>
+
+                        <h3 id="connecting">13.1 Connecting</h3>
+                        <p>Anything that talks to an EVM chain needs the same four values.</p>
+                        <div class="table-scroll">
+                            <table>
+                                <thead>
+                                <tr><th>Setting</th><th>Value</th></tr>
+                                </thead>
+                                <tbody>
+                                <tr><td>Network name</td><td>L2 Protocol</td></tr>
+                                <tr><td>Chain ID</td><td><code>12216</code></td></tr>
+                                <tr><td>RPC endpoint</td><td><code>https://rpc.l2protocol.com</code></td></tr>
+                                <tr><td>Currency</td><td><code>L2P</code>, 18 decimals</td></tr>
+                                <tr><td>Block explorer</td><td><code>https://l2pscan.com</code></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>In Hardhat:</p>
+<pre><code>networks: {
+  l2protocol: {
+    url: "https://rpc.l2protocol.com",
+    chainId: 12216
+  }
+}</code></pre>
+                        <p>In Foundry, <code>foundry.toml</code>:</p>
+<pre><code>[rpc_endpoints]
+l2protocol = "https://rpc.l2protocol.com"</code></pre>
+                        <p>
+                            Where the tooling allows it, read these values from the chain feed rather than pasting them, so
+                            that a second chain does not require a second integration.
+                        </p>
+
+                        <h3 id="rpc">13.2 RPC</h3>
+                        <p>
+                            The RPC is standard JSON-RPC over HTTPS, so anything that speaks Ethereum speaks to it. Reading the
+                            chain needs no wallet and no key.
+                        </p>
+<pre><code>curl -s https://rpc.l2protocol.com \
+  -H 'Content-Type: application/json' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"eth_blockNumber","params":[]}'</code></pre>
+                        <p>
+                            Every read that the project&rsquo;s own sites perform &mdash; including the governance tallies and
+                            the burn totals &mdash; is an <code>eth_call</code> against this public endpoint, and anyone can
+                            make the same call.
+                        </p>
+
+                        <h3 id="rpc-or-explorer">13.3 RPC or the explorer API</h3>
+                        <p>Both answer questions about the chain and they are good at different things.</p>
+                        <p>
+                            The <strong>RPC</strong> is the chain itself, right now. Use it for current state, for anything
+                            needed at the head of the chain, and for sending transactions.
+                        </p>
+                        <p>
+                            The <strong>explorer API</strong> is indexed history. Use it for anything that would take many RPC
+                            calls to assemble: an address&rsquo;s transaction list, a token&rsquo;s holders, statistics over
+                            time. It runs a block or two behind the head, and <code>/api/explorer/status</code> reports exactly
+                            how far.
+                        </p>
+
+                        <h3 id="deploying">13.4 Deploying and verifying</h3>
+                        <p>
+                            Contracts deploy exactly as they do on any EVM chain. Source verification is published through the
+                            explorer so that others can read and call a contract without trusting its author&rsquo;s
+                            description of it. The chain also ships an ENS registry with a <code>.l2p</code> name space, so
+                            that addresses can carry human-readable names.
+                        </p>
+
+                        <h3 id="reading-parameter">13.5 Reading a parameter</h3>
+                        <p>
+                            Everything the sites display can be read directly. For example, the current burn ratio is an
+                            <code>eth_call</code> against the validator set:
+                        </p>
+<pre><code>curl -s https://rpc.l2protocol.com \
+  -H 'Content-Type: application/json' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"eth_call",
+       "params":[{"to":"&lt;validatorSet&gt;","data":"&lt;burnRatio selector&gt;"},"latest"]}'</code></pre>
+                    </section>
+
+                    <section class="doc-section" id="security">
+                        <span class="section-num">Section 14</span>
+                        <h2>Security, operations and user safety</h2>
+
+                        <h3 id="protocol-security">14.1 Protocol security</h3>
+                        <p>
+                            The chain&rsquo;s security rests on stake at risk. A validator bonds seven million L2P of its own
+                            before it may run, and loses a fixed amount of that stake for downtime and a much larger amount for
+                            a double sign. Slashing comes out of self-delegation first, so the operator absorbs the loss before
+                            its delegators do. The unbond period prevents a validator&rsquo;s backers from exiting between the
+                            misbehaviour and the penalty.
+                        </p>
+                        <p>
+                            Governance is protected by structure rather than by trust: a single audited path through
+                            <code>govHub</code>, a whitelist that admits only that path, a quorum, a minimum period after
+                            quorum, a timelock, and permissionless execution.
+                        </p>
+                        <p>
+                            The two pause capabilities described in <a href="#what-can-change">Section 11.4</a> are the
+                            exception, and they are disclosed rather than hidden.
+                        </p>
+
+                        <h3 id="operational-infrastructure">14.2 Operational infrastructure</h3>
+                        <p>
+                            The public services run on managed Kubernetes with a hardened network perimeter, dedicated database
+                            and analytics nodes on a private network, and a tunnelled ingress so that no origin host is
+                            directly exposed to the internet. Deployments are automated and zero-downtime.
+                        </p>
+                        <p>
+                            Nothing in this stack is load-bearing for the chain itself. The chain is secured by its validator
+                            set, not by the project&rsquo;s servers. If every L2 Protocol website went offline tomorrow, the
+                            chain would continue producing blocks and anyone could still transact against it with their own
+                            node or any public endpoint.
+                        </p>
+                        <div class="callout callout-warning">
+                            <span class="callout-icon"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i></span>
+                            <div class="callout-body">
+                                <span class="callout-title">Being completed <span class="pending-badge">In progress</span></span>
+                                <p>
+                                    This section will state the audit position for the system contracts and the bridge &mdash;
+                                    who audited what, when, at which commit, and where the reports are published &mdash;
+                                    together with the bug bounty position and the responsible-disclosure contact. At the time
+                                    of writing no audit report is linked from this document, and a reader should treat the
+                                    contracts as unaudited until one is.
+                                </p>
+                            </div>
+                        </div>
+
+                        <h3 id="user-safety">14.3 User safety</h3>
+                        <p>
+                            Phishing is the most common way holders lose money in this industry, and it does not require any
+                            flaw in the protocol.
+                        </p>
+                        <p>
+                            The complete list of official sites and channels is in <a href="#appendix-c">Appendix C</a>.
+                            Anything not on that list is not official: there is no partner portal and no special page sent
+                            privately.
+                        </p>
+                        <p>
+                            Four habits protect against nearly all of it. Read the address bar rather than the page, because a
+                            fake site is a perfect copy apart from its address. Check the whole domain from the right, since
+                            <code>l2protocol.com.example.net</code> is not the same site and neither are
+                            <code>l2-protocol.com</code> or <code>l2protocol.io</code>. Use a bookmark once on a real site,
+                            which defeats search adverts and typosquats in one move. Treat search results with suspicion,
+                            because paid adverts above the real result are routine.
+                        </p>
+                        <div class="callout callout-danger">
+                            <span class="callout-icon"><i class="fa-solid fa-ban" aria-hidden="true"></i></span>
+                            <div class="callout-body">
+                                <span class="callout-title">Five things that are never real</span>
+                                <ul class="mb-0">
+                                    <li>A support message the user did not initiate.</li>
+                                    <li>Anyone asking for a seed phrase, for any reason, in any words.</li>
+                                    <li>A giveaway or airdrop that requires sending coins first.</li>
+                                    <li>Someone offering to sell L2P privately.</li>
+                                    <li>A site asking for a wallet connection to claim, verify, validate, migrate, unlock or restore something.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p>
+                            None of those words describes anything the protocol does. Anyone unsure should open a ticket at
+                            <a href="https://support.l2protocol.com">support.l2protocol.com</a> with the link in question and
+                            wait for a reply. That costs an hour. Guessing has cost other people everything they had.
+                        </p>
+                    </section>
+
+                    <section class="doc-section" id="regulatory">
+                        <span class="section-num">Section 15</span>
+                        <h2>Regulatory position</h2>
+                        <p>
+                            L2 Protocol is operated through a company structure established in the Netherlands and is therefore
+                            within the scope of the European Union&rsquo;s Markets in Crypto-Assets Regulation (MiCAR).
+                        </p>
+                        <p>
+                            The first presale round is sized at under one million euro over a twelve-month period. Under MiCAR,
+                            an offer to the public of a crypto-asset other than an asset-referenced token or an e-money token
+                            that does not exceed EUR 1,000,000 over twelve months falls outside the obligation to publish a
+                            regulated crypto-asset whitepaper and to notify a competent authority. Round 1 is scaled to that
+                            threshold deliberately: the intent is a modest raise relative to the size of the chain, keeping the
+                            share of supply sold early low.
+                        </p>
+                        <p>
+                            This document is published voluntarily for transparency. It is not a MiCAR crypto-asset whitepaper
+                            within the meaning of Title II of the Regulation, it has not been notified to or approved by any
+                            competent authority, and its publication does not itself bring the offer within scope.
+                        </p>
+                        <p>
+                            L2P is a native coin of a public permissionless blockchain, used for transaction fees, staking and
+                            governance. It does not reference the value of any other asset or basket of assets and is not
+                            redeemable at par against a claim on the issuer, so it is neither an asset-referenced token nor an
+                            e-money token.
+                        </p>
+                        <div class="callout callout-warning">
+                            <span class="callout-icon"><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i></span>
+                            <div class="callout-body">
+                                <span class="callout-title">Being completed <span class="pending-badge">In progress</span></span>
+                                <p>
+                                    The position above is the project&rsquo;s own, and is pending review by counsel qualified
+                                    in EU and Dutch financial law. It will be completed with the legal entity name, registered
+                                    office and KVK number; the precise dates of the twelve-month offer window; the
+                                    jurisdictions in which the offer is and is not made available; and the AML/KYC position
+                                    applied at the point of sale. Requirements differ materially outside the EU, and nothing
+                                    above should be read as covering them.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="doc-section" id="risk">
+                        <span class="section-num">Section 16</span>
+                        <h2>Risk factors and disclaimer</h2>
+
+                        <h3 id="risk-factors">16.1 Risk factors</h3>
+                        <p>
+                            Anyone considering acquiring, staking or building on L2P should weigh at least the following.
+                        </p>
+                        <p><strong>Market risk.</strong> The value of L2P may fall, including to zero. The burn removes coins from circulation; it does not create demand, guarantee liquidity or support a price. Nothing in this document is a forecast.</p>
+                        <p><strong>Liquidity risk.</strong> The liquidity allocation is phased in rather than deployed at once. Market depth may be thin, and there is no guarantee that L2P will be listed on any particular venue or remain listed.</p>
+                        <p><strong>Supply risk.</strong> A substantial share of the total supply is locked, vesting or held in a contract at the time of writing. Circulating supply grows over time on published schedules. Future unlocks and the future public distribution will increase the coins available to the market.</p>
+                        <p><strong>Slashing risk.</strong> Delegated stake is exposed to the behaviour of the validator it backs. A slashed validator&rsquo;s pool shrinks and every delegator&rsquo;s share shrinks with it. Undelegation is subject to the unbond period, during which the stake cannot be moved or sold.</p>
+                        <p><strong>Validator concentration risk.</strong> Early in a chain&rsquo;s life the set is small. Until the set grows, a small number of operators produce most blocks, and the governance activation threshold of five fully staked validators is a floor, not a guarantee of decentralisation.</p>
+                        <p><strong>Governance risk.</strong> Governance can change the economics of the chain, including the burn ratio, the emission pace, the slashing amounts and the rules of governance itself, within the ranges the contracts enforce. A holder who does not stake has no vote on any of it. A holder who does stake may be outvoted.</p>
+                        <p><strong>Privileged address risk.</strong> Two addresses can pause staking and governance respectively. They are a safety mechanism and they are also a trust assumption.</p>
+                        <p><strong>Smart contract risk.</strong> The system contracts, the bridge and any application deployed on the chain may contain defects. A defect in a bridge is the highest-consequence failure mode in any multi-chain system.</p>
+                        <p><strong>Bridge and counterparty chain risk.</strong> A bridge depends on assumptions about both chains it connects, including their finality. A reorganisation, halt or consensus failure on either side can affect assets in transit.</p>
+                        <p><strong>Operational and key-management risk.</strong> Validator operators can lose funds through their own configuration errors, of which running two nodes on the same consensus key is the most expensive. Users can lose funds through phishing, seed-phrase compromise or sending to the wrong address. None of these is recoverable.</p>
+                        <p><strong>Regulatory risk.</strong> The regulatory treatment of crypto-assets is developing in every jurisdiction. Changes in law or in its interpretation may affect the protocol, the offer, the availability of the applications, or a holder&rsquo;s ability to acquire, hold or dispose of L2P.</p>
+                        <p><strong>Key person and execution risk.</strong> The protocol is developed by a small team. Delivery of anything described as planned depends on continued development, funding and the growth of a validator set that is not under the project&rsquo;s control.</p>
+                        <p><strong>Technology risk.</strong> The client is a fork of an actively developed upstream. Upstream defects, network attacks and novel consensus-level exploits remain possible.</p>
+
+                        <h3 id="disclaimer">16.2 Disclaimer</h3>
+                        <p>This document is published for information only.</p>
+                        <p>
+                            It is not investment, financial, legal, tax or accounting advice, and it must not be relied on as
+                            any of those. It is not an offer to sell, nor a solicitation of an offer to buy, any asset,
+                            security or financial instrument, in any jurisdiction in which such an offer or solicitation would
+                            be unlawful. It is not a prospectus and it is not a MiCAR crypto-asset whitepaper within the
+                            meaning of Title II of Regulation (EU) 2023/1114.
+                        </p>
+                        <p>
+                            Statements about future functionality, timelines or activation of protocol features are
+                            forward-looking. They reflect current intentions and are subject to change without notice. They are
+                            not commitments and no reliance should be placed on them.
+                        </p>
+                        <p>
+                            Every quantitative statement in this document about the live network reflects the protocol&rsquo;s
+                            configuration at the time of writing. Parameters can be changed by governance.
+                            <strong>The chain is the record.</strong> Where this document and the chain disagree, the chain is
+                            correct. Readers are encouraged to verify every figure themselves, and Sections
+                            <a href="#fees-burn">9</a>, <a href="#governance">11</a> and <a href="#developers">13</a> describe
+                            how.
+                        </p>
+                        <p>
+                            No representation or warranty, express or implied, is given as to the accuracy or completeness of
+                            this document. To the fullest extent permitted by law, no liability is accepted for any loss
+                            arising from its use.
+                        </p>
+                        <p>
+                            Acquiring crypto-assets involves substantial risk, including the risk of losing everything
+                            invested. Anyone considering it should form their own view, and should take independent
+                            professional advice appropriate to their circumstances and their jurisdiction.
+                        </p>
+                    </section>
+
+                    <section class="doc-section" id="roadmap">
+                        <span class="section-num">Section 17</span>
+                        <h2>Roadmap</h2>
+                        <div class="callout callout-warning">
+                            <span class="callout-icon"><i class="fa-solid fa-route" aria-hidden="true"></i></span>
+                            <div class="callout-body">
+                                <span class="callout-title">Being completed <span class="pending-badge">In progress</span></span>
+                                <p>
+                                    The phases below are the sequencing implied by the protocol design, not a schedule. Dates
+                                    are deliberately absent, and the items that depend on governance rather than on the team
+                                    are marked as such. Committed items and their dependencies will be stated here as they are
+                                    fixed.
+                                </p>
+                            </div>
+                        </div>
+                        <p>
+                            <strong>Phase 1 &mdash; Genesis and bootstrap.</strong> Chain live at chain ID 12216. System
+                            contracts deployed in the genesis state. Explorer, RPC, chain feed, staking site, governance site,
+                            voting site, burn site, network status and support live. Presale round 1 running through chain year
+                            one. Emissions do not start until block 21,038,400.
+                        </p>
+                        <p>
+                            <strong>Phase 2 &mdash; Validator set growth.</strong> Recruit and onboard independent validator
+                            operators. Governance unlocks automatically at 35,000,000 govL2P, five fully staked validators.
+                            Emissions begin at the start block.
+                        </p>
+                        <p>
+                            <strong>Phase 3 &mdash; Governance activation.</strong> First parameter proposals. Configure
+                            candidate rotation before the set passes 21 validators, which is a hard sequencing requirement
+                            rather than a preference. Enable malicious vote slashing once losing two validators simultaneously
+                            is survivable. <em>Depends on governance.</em>
+                        </p>
+                        <p>
+                            <strong>Phase 4 &mdash; Chains for other projects.</strong> First community-elected chain deployed
+                            end to end: chain, bridge, explorer, validator set, governance. Repeat via all three qualification
+                            routes.
+                        </p>
+                        <p>
+                            <strong>Phase 5 &mdash; Ecosystem.</strong> Deploy the ecosystem and grants allocation against
+                            applications built on the chains. Phase in liquidity. Future public distribution.
+                        </p>
+                    </section>
+
+                    <section class="doc-section" id="appendix-a">
+                        <span class="section-num">Appendix A</span>
+                        <h2>Parameter reference</h2>
+                        <p>
+                            All values are the genesis configuration. Every one of them is readable on-chain and changeable
+                            only by a proposal that passes its vote and clears the timelock, within the range shown. Durations
+                            are in blocks at 1.5 seconds per block: one day is 57,600 blocks, one week is 403,200.
+                        </p>
+
+                        <h3 id="params-fees">Block fees</h3>
+                        <p>
+                            The three shares are taken from the same fee and together may not exceed 10,000 (100%). The
+                            remainder goes to the block producer.
+                        </p>
+                        <div class="table-scroll">
+                            <table>
+                                <thead><tr><th>Parameter</th><th>Genesis</th><th class="wrap">Range</th></tr></thead>
+                                <tbody>
+                                <tr><td><code>burnRatio</code></td><td>1000 (10%)</td><td class="wrap">The three together at most 10000</td></tr>
+                                <tr><td><code>systemRewardBaseRatio</code></td><td>625 (6.25%)</td><td class="wrap">The three together at most 10000</td></tr>
+                                <tr><td><code>systemRewardAntiMEVRatio</code></td><td>0 (off)</td><td class="wrap">The three together at most 10000</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 id="params-emissions">Emissions</h3>
+                        <div class="table-scroll">
+                            <table>
+                                <thead><tr><th>Parameter</th><th>Genesis</th><th class="wrap">Range</th></tr></thead>
+                                <tbody>
+                                <tr><td><code>emissionRatePerBlock</code></td><td>317</td><td class="wrap">1 to 317</td></tr>
+                                <tr><td><code>emissionHalvingPeriod</code></td><td>105,192,000 (&asymp;5 years)</td><td class="wrap">At least 1,000,000 (&asymp;17 days)</td></tr>
+                                <tr><td><code>emissionMaxHalvings</code></td><td>2</td><td class="wrap">1 to 20</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 id="params-production">Block production</h3>
+                        <div class="table-scroll">
+                            <table>
+                                <thead><tr><th>Parameter</th><th>Genesis</th><th class="wrap">Range</th></tr></thead>
+                                <tbody>
+                                <tr><td><code>maxElectedValidators</code></td><td>45</td><td class="wrap">1 to 500</td></tr>
+                                <tr><td><code>numOfCabinets</code></td><td>21</td><td class="wrap">1 up to the elected maximum</td></tr>
+                                <tr><td><code>maxNumOfCandidates</code></td><td>0 (off)</td><td class="wrap">Above 0</td></tr>
+                                <tr><td><code>maxNumOfWorkingCandidates</code></td><td>0 (off)</td><td class="wrap">At most the candidate maximum</td></tr>
+                                <tr><td><code>turnLength</code></td><td>0, read as 1</td><td class="wrap">1, or 3 to 64</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 id="params-maintenance">Maintenance</h3>
+                        <div class="table-scroll">
+                            <table>
+                                <thead><tr><th>Parameter</th><th>Genesis</th><th class="wrap">Range</th></tr></thead>
+                                <tbody>
+                                <tr><td><code>maxNumOfMaintaining</code></td><td>3</td><td class="wrap">Below the number of cabinet validators</td></tr>
+                                <tr><td><code>maintainSlashScale</code></td><td>2</td><td class="wrap">1 to 9</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 id="params-staking">Staking and delegation</h3>
+                        <div class="table-scroll">
+                            <table>
+                                <thead><tr><th>Parameter</th><th>Genesis</th><th class="wrap">Range</th></tr></thead>
+                                <tbody>
+                                <tr><td><code>minSelfDelegationL2P</code></td><td>7,000,000</td><td class="wrap">3,500,000 to 350,000,000</td></tr>
+                                <tr><td><code>minDelegationL2PChange</code></td><td>3,500</td><td class="wrap">350 to 35,000</td></tr>
+                                <tr><td><code>unbondPeriod</code></td><td>7 days</td><td class="wrap">3 to 30 days</td></tr>
+                                <tr><td><code>redelegateFeeRate</code></td><td>2 (0.002%, base 100,000)</td><td class="wrap">0 to 100</td></tr>
+                                <tr><td><code>transferGasLimit</code></td><td>5,000</td><td class="wrap">2,300 to 10,000</td></tr>
+                                <tr><td><code>maxNodeIDs</code></td><td>5</td><td class="wrap">Above 0</td></tr>
+                                <tr><td><code>stakeHubProtector</code></td><td>Set at genesis</td><td class="wrap">Any real address</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 id="params-punishment">Punishment</h3>
+                        <div class="table-scroll">
+                            <table>
+                                <thead><tr><th>Parameter</th><th>Genesis</th><th class="wrap">Range</th></tr></thead>
+                                <tbody>
+                                <tr><td><code>misdemeanorThreshold</code></td><td>50</td><td class="wrap">&ge;1, below the felony threshold</td></tr>
+                                <tr><td><code>felonyThreshold</code></td><td>150</td><td class="wrap">Above the misdemeanor threshold, at most 1000</td></tr>
+                                <tr><td><code>downtimeSlashAmount</code></td><td>35,000</td><td class="wrap">&ge;3,500, below the felony amount</td></tr>
+                                <tr><td><code>felonySlashAmount</code></td><td>700,000</td><td class="wrap">&ge;35,000, above the downtime amount</td></tr>
+                                <tr><td><code>downtimeJailTime</code></td><td>2 days</td><td class="wrap">&ge;1 day, below the felony jail time</td></tr>
+                                <tr><td><code>felonyJailTime</code></td><td>30 days</td><td class="wrap">&ge;3 days, above the downtime jail time</td></tr>
+                                <tr><td><code>felonySlashScope</code></td><td>57,600 (1 day)</td><td class="wrap">1 to 30 days</td></tr>
+                                <tr><td><code>felonySlashRewardRatio</code></td><td>20 (20%)</td><td class="wrap">10 to 99</td></tr>
+                                <tr><td><code>maxFelonyBetweenBreatheBlock</code></td><td>2</td><td class="wrap">Above 0</td></tr>
+                                <tr><td><code>enableMaliciousVoteSlash</code></td><td>false (off)</td><td class="wrap">On or off</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 id="params-governance">Governance</h3>
+                        <div class="table-scroll">
+                            <table>
+                                <thead><tr><th>Parameter</th><th>Genesis</th><th class="wrap">Range</th></tr></thead>
+                                <tbody>
+                                <tr><td><code>votingDelay</code></td><td>0</td><td class="wrap">0 blocks to 24 hours</td></tr>
+                                <tr><td><code>votingPeriod</code></td><td>403,200 (7 days)</td><td class="wrap">1 block to 30 days</td></tr>
+                                <tr><td><code>minPeriodAfterQuorum</code></td><td>57,600 (1 day)</td><td class="wrap">1 block to 2 days</td></tr>
+                                <tr><td><code>proposalThreshold</code></td><td>700,000 govL2P</td><td class="wrap">1 to 35,000,000</td></tr>
+                                <tr><td><code>quorumNumerator</code></td><td>10 (10%)</td><td class="wrap">5 to 20</td></tr>
+                                <tr><td><code>governorProtector</code></td><td>Set at genesis</td><td class="wrap">Any real address</td></tr>
+                                <tr><td><code>minDelay</code> (timelock)</td><td>24 hours</td><td class="wrap">Above 0, at most 14 days</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            Proposals may only ever call <code>govHub</code>. That is fixed at genesis and is not a parameter.
+                        </p>
+
+                        <h3 id="params-system-reward">System reward operators</h3>
+                        <div class="table-scroll">
+                            <table>
+                                <thead><tr><th>Parameter</th><th class="wrap">Genesis</th><th class="wrap">Range</th></tr></thead>
+                                <tbody>
+                                <tr><td><code>addOperator</code></td><td class="wrap">The validator set and the slash indicator</td><td class="wrap">Any real address</td></tr>
+                                <tr><td><code>deleteOperator</code></td><td class="wrap">&mdash;</td><td class="wrap">Any real address</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section class="doc-section" id="appendix-b">
+                        <span class="section-num">Appendix B</span>
+                        <h2>System contracts</h2>
+                        <p>
+                            Addresses on the L2 Protocol chain (chain ID 12216). These are also published in the chain feed,
+                            per chain; integrations should read them from the feed rather than hardcode them.
+                        </p>
+                        <div class="table-scroll">
+                            <table>
+                                <thead><tr><th>Contract</th><th>Address</th></tr></thead>
+                                <tbody>
+                                <tr><td><code>validatorSet</code></td><td class="mono">0x0000000000000000000000000000000000001000</td></tr>
+                                <tr><td><code>slashIndicator</code></td><td class="mono">0x0000000000000000000000000000000000001001</td></tr>
+                                <tr><td><code>systemReward</code></td><td class="mono">0x0000000000000000000000000000000000001002</td></tr>
+                                <tr><td><code>govHub</code></td><td class="mono">0x0000000000000000000000000000000000001007</td></tr>
+                                <tr><td><code>stakeHub</code></td><td class="mono">0x0000000000000000000000000000000000002002</td></tr>
+                                <tr><td><code>stakeCredit</code></td><td class="mono">0x0000000000000000000000000000000000002003</td></tr>
+                                <tr><td><code>governor</code></td><td class="mono">0x0000000000000000000000000000000000002004</td></tr>
+                                <tr><td><code>govToken</code></td><td class="mono">0x0000000000000000000000000000000000002005</td></tr>
+                                <tr><td><code>timelock</code></td><td class="mono">0x0000000000000000000000000000000000002006</td></tr>
+                                <tr><td><code>blsPrecompile</code></td><td class="mono">0x0000000000000000000000000000000000000066</td></tr>
+                                <tr><td><code>Multicall3</code></td><td class="mono">0xcA11bde05977b3631167028862bE2a173976CA11</td></tr>
+                                <tr><td>Burn address</td><td class="mono">0x000000000000000000000000000000000000dEaD</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+<pre><code>curl -s https://chains.l2protocol.com/chains.json | jq '.[0].contracts'</code></pre>
+                    </section>
+
+                    <section class="doc-section" id="appendix-c">
+                        <span class="section-num">Appendix C</span>
+                        <h2>Official links</h2>
+                        <p>
+                            If a site is not on this list, it is not official. There is no exception, no partner portal and no
+                            special page sent privately.
+                        </p>
+
+                        <h3 id="links-sites">Sites</h3>
+                        <div class="table-scroll">
+                            <table>
+                                <thead><tr><th class="wrap">What it is</th><th>Address</th></tr></thead>
+                                <tbody>
+                                <tr><td class="wrap">The project</td><td><a href="https://l2protocol.com">https://l2protocol.com</a></td></tr>
+                                <tr><td class="wrap">Documentation</td><td><a href="https://docs.l2protocol.com">https://docs.l2protocol.com</a></td></tr>
+                                <tr><td class="wrap">Block explorer</td><td><a href="https://l2pscan.com">https://l2pscan.com</a></td></tr>
+                                <tr><td class="wrap">Staking and validators</td><td><a href="https://validators.l2protocol.com">https://validators.l2protocol.com</a></td></tr>
+                                <tr><td class="wrap">Governance</td><td><a href="https://governance.l2protocol.com">https://governance.l2protocol.com</a></td></tr>
+                                <tr><td class="wrap">Community vote</td><td><a href="https://voting.l2protocol.com">https://voting.l2protocol.com</a></td></tr>
+                                <tr><td class="wrap">The burn</td><td><a href="https://l2pburn.info">https://l2pburn.info</a></td></tr>
+                                <tr><td class="wrap">Network status</td><td><a href="https://l2stats.dev">https://l2stats.dev</a></td></tr>
+                                <tr><td class="wrap">Support</td><td><a href="https://support.l2protocol.com">https://support.l2protocol.com</a></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="callout callout-warning">
+                            <span class="callout-icon"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i></span>
+                            <div class="callout-body">
+                                <p>
+                                    Note that <strong>l2pscan.com</strong>, <strong>l2pburn.info</strong> and
+                                    <strong>l2stats.dev</strong> do not sit on the <code>l2protocol.com</code> domain and are
+                                    nonetheless official. That is exactly the kind of detail an impersonator relies on. Check
+                                    any address against this list rather than against the shape of the name.
+                                </p>
+                            </div>
+                        </div>
+
+                        <h3 id="links-services">Services</h3>
+                        <div class="table-scroll">
+                            <table>
+                                <thead><tr><th class="wrap">What it is</th><th>Address</th></tr></thead>
+                                <tbody>
+                                <tr><td class="wrap">RPC endpoint</td><td><code>rpc.l2protocol.com</code></td></tr>
+                                <tr><td class="wrap">Chain feed</td><td><code>chains.l2protocol.com</code></td></tr>
+                                <tr><td class="wrap">Static files and genesis</td><td><code>static.l2protocol.com</code></td></tr>
+                                <tr><td class="wrap">Validator profiles</td><td><code>validator-directory.l2protocol.com</code></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 id="links-community">Community</h3>
+                        <div class="table-scroll">
+                            <table>
+                                <thead><tr><th class="wrap">Where</th><th>Address</th></tr></thead>
+                                <tbody>
+                                <tr><td class="wrap">Telegram</td><td><a href="https://t.me/l2protocol_com">https://t.me/l2protocol_com</a></td></tr>
+                                <tr><td class="wrap">Discord</td><td><a href="https://discord.gg/GTYcqctS">https://discord.gg/GTYcqctS</a></td></tr>
+                                <tr><td class="wrap">X</td><td><a href="https://x.com/L2Protocol">https://x.com/L2Protocol</a></td></tr>
+                                <tr><td class="wrap">Reddit</td><td><a href="https://reddit.com/r/L2Protocol">https://reddit.com/r/L2Protocol</a></td></tr>
+                                <tr><td class="wrap">GitHub</td><td><a href="https://github.com/L2Protocol">https://github.com/L2Protocol</a></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            Cloned Telegram groups and Discord servers are the most common impersonation in this industry. Join
+                            through the links above, not through a link sent by someone or an invite you were added to.
+                        </p>
+                    </section>
+
+                    <section class="doc-section" id="appendix-d">
+                        <span class="section-num">Appendix D</span>
+                        <h2>Glossary</h2>
+                        <dl class="glossary">
+                            <dt>BLS key</dt><dd>The key a validator uses to sign finality votes, distinct from the account that signs blocks. Its public half is the validator&rsquo;s vote address.</dd>
+                            <dt>Burn address</dt><dd><code>0x&hellip;dEaD</code>, an address with no private key. Coins sent there can never be moved by any signature.</dd>
+                            <dt>Cabinet</dt><dd>The subset of elected validators that actually produces blocks, capped by <code>numOfCabinets</code>.</dd>
+                            <dt>Commission</dt><dd>The share of a delegator&rsquo;s rewards that the validator keeps.</dd>
+                            <dt>Delegation</dt><dd>Bonding L2P behind a validator to share in what it earns and in what it risks.</dd>
+                            <dt>Double sign</dt><dd>Signing two conflicting blocks. Treated as a felony, with the largest slash and the longest jail.</dd>
+                            <dt>Elected set</dt><dd>The validators chosen each epoch by total stake, capped by <code>maxElectedValidators</code>. Stake behind a validator outside this set earns nothing.</dd>
+                            <dt>Emission</dt><dd>New L2P created per block and paid to validators, on the fixed schedule in <a href="#emissions">Section 8</a>.</dd>
+                            <dt>Epoch</dt><dd>The interval at which the validator set is re-elected.</dd>
+                            <dt>Felony</dt><dd>The severe class of misbehaviour: a double sign, or a malicious finality vote once that check is enabled.</dd>
+                            <dt>Finalized</dt><dd>A block that is settled permanently and cannot be replaced.</dd>
+                            <dt>Gas</dt><dd>A measure of computational work. A fee is gas used multiplied by gas price.</dd>
+                            <dt>govL2P</dt><dd>Non-transferable voting power, minted automatically for every L2P staked and burned on undelegation.</dd>
+                            <dt>Jail</dt><dd>A period during which a punished validator produces no blocks and earns nothing.</dd>
+                            <dt>Misdemeanor</dt><dd>The lesser class of misbehaviour: enough missed blocks to have pending rewards redistributed.</dd>
+                            <dt>Quorum</dt><dd>The share of all govL2P that must vote for a proposal&rsquo;s result to count.</dd>
+                            <dt>Redelegation</dt><dd>Moving stake directly from one validator to another without waiting out the unbond period, at the cost of a small fee.</dd>
+                            <dt>Signal proposal</dt><dd>A proposal that records what the community wants without changing any parameter by itself.</dd>
+                            <dt>Slashing</dt><dd>Cutting a validator&rsquo;s stake as a penalty, taken from self-delegation first.</dd>
+                            <dt>Snapshot block</dt><dd>The block at which voting weight is measured for a proposal. Coins acquired afterwards do not vote on it.</dd>
+                            <dt>Stake credit</dt><dd>A delegator&rsquo;s share of a validator&rsquo;s pool.</dd>
+                            <dt>Self-delegation</dt><dd>The L2P a validator bonds of its own, and the first thing slashed when it misbehaves.</dd>
+                            <dt>Timelock</dt><dd>The mandatory delay between a proposal passing and anyone being able to execute it.</dd>
+                            <dt>Unbond period</dt><dd>The waiting time between undelegating and being able to claim the coins.</dd>
+                            <dt>wei</dt><dd>The smallest unit of L2P. One L2P is 10<sup>18</sup> wei.</dd>
+                        </dl>
+                    </section>
+                </article>
+
+                <p class="doc-foot-note">
+                    L2 Protocol &middot; Chain ID 12216 &middot; <a href="https://l2protocol.com">l2protocol.com</a><br>
+                    Verify every figure in this document against the chain. The chain is the record.
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="l2p-footer">
+    <div class="l2p-footer-inner">
+        <div class="l2p-footer-grid">
+            <div class="l2p-footer-intro">
+                <a href="https://l2protocol.com" class="l2p-footer-brand">
+                    <img src="https://static.l2protocol.com/images/icon-dark.svg" alt="L2 Protocol" width="30" height="30">
+                    <span class="l2p-footer-brand-text">L2 Protocol</span>
+                </a>
+                <p class="l2p-footer-moto">Turnkey L2 infrastructure for blockchain projects. L2 Protocol brings smart contract capabilities to chains that do not natively support them.</p>
+            </div>
+            <nav class="l2p-footer-col" aria-labelledby="l2pFooterExplore">
+                <h2 class="l2p-footer-heading" id="l2pFooterExplore">Explore</h2>
+                <ul class="l2p-footer-links">
+                    <li><a href="https://l2pscan.com">L2PScan</a></li>
+                    <li><a href="https://l2stats.dev">Network stats</a></li>
+                    <li><a href="https://l2pburn.info">Burn info</a></li>
+                </ul>
+            </nav>
+            <nav class="l2p-footer-col" aria-labelledby="l2pFooterParticipate">
+                <h2 class="l2p-footer-heading" id="l2pFooterParticipate">Participate</h2>
+                <ul class="l2p-footer-links">
+                    <li><a href="https://presale.l2protocol.com">Presale</a></li>
+                    <li><a href="https://governance.l2protocol.com">Governance</a></li>
+                    <li><a href="https://voting.l2protocol.com">Voting</a></li>
+                    <li><a href="https://validators.l2protocol.com">Staking</a></li>
+                </ul>
+            </nav>
+            <nav class="l2p-footer-col" aria-labelledby="l2pFooterHelp">
+                <h2 class="l2p-footer-heading" id="l2pFooterHelp">Help</h2>
+                <ul class="l2p-footer-links">
+                    <li><a href="https://support.l2protocol.com">Support</a></li>
+                    <li><a href="https://docs.l2protocol.com">Documentation</a></li>
+                    <li><a href="https://whitepaper.l2protocol.com">Whitepaper</a></li>
+                    <li><a href="https://l2protocol.com">About</a></li>
+                    <li><a href="mailto:hello@l2protocol.com">Contact</a></li>
+                </ul>
+            </nav>
+            <nav class="l2p-footer-col l2p-footer-col-community" aria-labelledby="l2pFooterCommunity">
+                <h2 class="l2p-footer-heading" id="l2pFooterCommunity">Community</h2>
+                <div class="l2p-footer-social">
+                    <a href="https://t.me/l2protocol_com" target="_blank" rel="noopener" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="https://discord.gg/GTYcqctS" target="_blank" rel="noopener" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+                    <a href="https://x.com/L2Protocol" target="_blank" rel="noopener" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://reddit.com/r/L2Protocol" target="_blank" rel="noopener" aria-label="Reddit"><i class="fa-brands fa-reddit-alien"></i></a>
+                    <a href="https://github.com/L2Protocol" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </nav>
+        </div>
+        <hr class="l2p-footer-divider">
+        <div class="l2p-footer-baseline">
+            <div class="l2p-footer-baseline-start">
+                <span class="l2p-footer-copyright">&copy; 2026 L2 Protocol. All rights reserved.</span>
+                <div class="l2p-footer-legal">
+                    <a href="https://legal.l2protocol.com/privacy">Privacy Policy</a>
+                    <a href="https://legal.l2protocol.com/terms">Terms of Use</a>
+                </div>
+            </div>
+            <span class="l2p-footer-signature">Smart Contracts for Any Chain.</span>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
