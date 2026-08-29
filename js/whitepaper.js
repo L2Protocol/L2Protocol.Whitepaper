@@ -43,7 +43,7 @@
     }
 
     function setUpThemeSwitch() {
-        applyTheme(storedTheme() || 'light');
+        applyTheme(storedTheme() || 'dark');
 
         const button = document.getElementById('theme-switch');
         if (!button)
