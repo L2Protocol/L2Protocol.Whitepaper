@@ -723,6 +723,14 @@ h3:hover .head-anchor,
     border-top: 1px solid var(--bs-border-color);
 }
 
+.alloc-w-30 { --alloc-width: 30%; }
+.alloc-w-175 { --alloc-width: 17.5%; }
+.alloc-w-15 { --alloc-width: 15%; }
+.alloc-w-10 { --alloc-width: 10%; }
+.alloc-w-6 { --alloc-width: 6%; }
+.alloc-w-45 { --alloc-width: 4.5%; }
+.alloc-w-2 { --alloc-width: 2%; }
+
 .alloc-item::before {
     content: "";
     position: absolute;
