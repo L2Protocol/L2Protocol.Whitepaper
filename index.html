@@ -402,11 +402,15 @@
                             <li><strong>One free vote per wallet per day.</strong> The day runs on UTC, so every wallet's vote resets at the same moment worldwide.</li>
                             <li><strong>A signature, not a transaction.</strong> A voter signs a short message. Nothing leaves the wallet, no fee is paid, and the site gains no access to the wallet. A signature cannot be forged by a script the way a click can, so a vote is attributable to a wallet without anyone being able to cast it on that wallet's behalf.</li>
                             <li><strong>Anti-farming limits.</strong> Votes are counted per wallet and per browser, a small number of votes is accepted per internet connection per day, and connections from VPNs and datacentres are refused. Honest voters in a shared household or office can encounter these limits, which is the cost of making vote farms expensive.</li>
+                            <li><strong>Presale buyers vote heavier, with diminishing returns.</strong> A wallet still casts one vote per day, but a presale balance adds extra votes to it, and the n-th extra vote takes n&sup2; &times; 100,000 L2P. 100,000 L2P makes the vote count twice, 1 million four times and 10 million eleven times, up to a maximum of 100 extra votes. A hundred times the balance buys ten times the weight, so no single buyer can outvote the community.</li>
                             <li><strong>A live leaderboard.</strong> Standings update as votes arrive, from everyone, in public.</li>
                         </ul>
                         <p>
-                            At present every vote weighs the same. A future token is planned that will let holders boost their
-                            voting power, and the voting site states this on its front page.
+                            The leaderboard ranks projects on the sum of these weights. The weight is read from the presale
+                            ledger when the vote is cast and recorded with it, so a vote keeps the weight it was cast with. A
+                            wallet whose balance cannot be read at that moment votes at the normal weight rather than not at
+                            all. The bonus does not change the limits above: every extra vote rides on the one daily vote,
+                            with its own signature, captcha and connection limit.
                         </p>
 
                         <h3 id="after-qualifying">4.4 After qualifying</h3>
