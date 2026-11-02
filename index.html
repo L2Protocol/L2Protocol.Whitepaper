@@ -11,7 +11,7 @@
     <meta property="og:title" content="L2 Protocol Whitepaper">
     <meta property="og:site_name" content="L2 Protocol">
     <meta property="og:url" content="https://whitepaper.l2protocol.com/">
-    <meta property="og:description" content="Layer 2 blockchain infrastructure as a service. Chain ID 12216, native coin L2P, a fixed supply of 166,670,000,000, a ten-year emission schedule and a fee burn on every block.">
+    <meta property="og:description" content="Layer 2 blockchain infrastructure as a service. Chain ID 12216, native coin L2P, a fixed supply of 105,000,000,000, an emission pool paid out as a capped yield on the stake, and a fee burn on every block.">
     <meta property="og:type" content="article">
     <meta property="og:image" content="https://static.l2protocol.com/images/og.png">
     <meta name="twitter:card" content="summary_large_image">
@@ -61,7 +61,7 @@
 <main id="main-content" tabindex="-1">
     <section class="hero">
         <div class="container-fluid px-3 px-lg-4">
-            <span class="eyebrow hero-eyebrow">Whitepaper &middot; Version 1.0 (draft)</span>
+            <span class="eyebrow hero-eyebrow">Whitepaper &middot; Version 1.1 (draft)</span>
             <h1>Layer 2 blockchain infrastructure as a service</h1>
             <p class="hero-lead">
                 L2 Protocol operates layer 2 blockchains on behalf of other crypto projects. A qualifying project receives
@@ -85,11 +85,11 @@
                 </div>
                 <div class="hero-fact">
                     <span class="hero-fact-label">Total supply</span>
-                    <span class="hero-fact-value">166.67B<small>Fixed at genesis</small></span>
+                    <span class="hero-fact-value">105B<small>Fixed at genesis</small></span>
                 </div>
                 <div class="hero-fact">
                     <span class="hero-fact-label">Block time</span>
-                    <span class="hero-fact-value">1.5s<small>~21,038,400 blocks/year</small></span>
+                    <span class="hero-fact-value">1.5s<small>21,024,000 blocks/year</small></span>
                 </div>
             </div>
         </div>
@@ -141,6 +141,8 @@
                     <div class="rail-subs">
                         <a class="rail-sub" href="#allocations">Allocations</a>
                         <a class="rail-sub" href="#allocation-purpose">What each allocation is for</a>
+                        <a class="rail-sub" href="#presale">The presale</a>
+                        <a class="rail-sub" href="#coins-no-vote">Coins that do not vote</a>
                         <a class="rail-sub" href="#fixed-supply">What "fixed supply" means</a>
                         <a class="rail-sub" href="#reading-figures">Reading these figures honestly</a>
                     </div>
@@ -157,6 +159,7 @@
                         <a class="rail-sub" href="#tx-cost">What a transaction costs</a>
                         <a class="rail-sub" href="#fee-destination">Where the fee goes</a>
                         <a class="rail-sub" href="#the-burn">The burn</a>
+                        <a class="rail-sub" href="#quarterly-burn">The quarterly burn</a>
                     </div>
                     <a class="rail-link" href="#staking"><span class="rail-num">10</span><span>Staking and validators</span></a>
                     <div class="rail-subs">
@@ -245,25 +248,26 @@
                         <p>
                             The native coin of every L2 Protocol chain is <strong>L2P</strong>. It pays for gas, it is what
                             validators and delegators bond as stake, and it is what governance counts when it weighs a vote.
-                            Its total supply is fixed at genesis at <strong>166,670,000,000 L2P</strong>, divided across eight
+                            Its total supply is fixed at genesis at <strong>105,000,000,000 L2P</strong>, divided across eight
                             allocations. There is no mint function and no inflation switch.
                         </p>
                         <p>
-                            Thirty percent of that supply, 50 billion L2P, is not held by anyone. It sits in the ValidatorSet
-                            contract and is paid out block by block to the validators securing the chain over approximately
-                            ten years, on a schedule the contract enforces. In the other direction, a fixed share of every
-                            transaction fee is destroyed on every block, permanently.
+                            Just over nineteen percent of that supply, 20 billion L2P, is not held by anyone. It sits in the
+                            ValidatorSet contract and is paid out once a day to the validators securing the chain, as a yield
+                            on their stake that the contract caps at 7.5% a year for the first five years and 4% after that,
+                            until the pool is empty. In the other direction, a fixed share of every transaction fee is
+                            destroyed on every block, permanently.
                         </p>
                         <div class="stat-grid">
                             <div class="stat-tile">
                                 <span class="stat-label">Total supply</span>
-                                <span class="stat-value">166.67B</span>
+                                <span class="stat-value">105B</span>
                                 <span class="stat-note">L2P, fixed at genesis</span>
                             </div>
                             <div class="stat-tile">
                                 <span class="stat-label">Emission pool</span>
-                                <span class="stat-value">50.00B</span>
-                                <span class="stat-note">30%, held by a contract</span>
+                                <span class="stat-value">20.00B</span>
+                                <span class="stat-note">19.05%, held by a contract</span>
                             </div>
                             <div class="stat-tile">
                                 <span class="stat-label">Burn ratio</span>
@@ -272,12 +276,12 @@
                             </div>
                             <div class="stat-tile">
                                 <span class="stat-label">Emission window</span>
-                                <span class="stat-value">~10 yr</span>
-                                <span class="stat-note">Two five-year windows</span>
+                                <span class="stat-value">~12 yr</span>
+                                <span class="stat-note">At full stake; longer below it</span>
                             </div>
                         </div>
                         <p>
-                            Every economic parameter of the chain (the burn ratio, the emission rate, the slashing
+                            Every economic parameter of the chain (the burn ratio, the emission yields, the slashing
                             amounts, the staking minimums, the governance rules themselves) is a value that a proposal
                             can change, and only a proposal can change. Proposals pass a token-weighted vote, then wait in a
                             timelock, then may be executed by anyone. There is no administrative key that bypasses that path.
@@ -360,14 +364,17 @@
                             <strong>Nothing has an owner.</strong> The economic parameters are governed. The emission pool sits
                             in a contract. The burn address has no key. The governance path has a single audited entry point
                             and no administrative override. Two privileged addresses do exist: the staking protector and the
-                            governance protector, each of which can pause its own subsystem. This document names them
-                            explicitly, because a safety mechanism that is not disclosed is a backdoor.
+                            governance protector, each of which can pause its own subsystem. A third key, the operations
+                            key, can start the presale clock and the emission schedule, each exactly once, and holds the
+                            root of the <code>.l2p</code> name registry. This document names them explicitly, because a
+                            safety mechanism that is not disclosed is a backdoor.
                         </p>
                         <p>
                             <strong>Limits point one way.</strong> Where a parameter could be abused, its range is bounded in
-                            the contract so that abuse is impossible rather than merely unlikely. The clearest example is the
-                            emission rate: its genesis value of 317 L2P per block is also its ceiling. Governance can slow
-                            issuance down. It can never speed it up.
+                            the contract so that abuse is impossible rather than merely unlikely. The clearest example is
+                            emission: its genesis yields of 7.5% a year for the first five years and 4% after that are also
+                            their ceilings, and so is the 30 billion target stake the yield is paid on. Governance can slow
+                            emission down. It can never speed it up.
                         </p>
                     </section>
 
@@ -451,8 +458,9 @@
                         <h3 id="consensus">5.2 Consensus</h3>
                         <p>
                             Blocks are produced by an elected validator set on a proof-of-stake-and-authority model. A new
-                            block arrives roughly every <strong>1.5 seconds</strong>, which works out at approximately
-                            <strong>21,038,400 blocks per year</strong>. That block time is the unit in which every duration
+                            block arrives roughly every <strong>1.5 seconds</strong>, which works out at
+                            <strong>21,024,000 blocks</strong> in a year of 365 days, the year the contracts count in. That
+                            block time is the unit in which every duration
                             parameter on the chain is expressed: one day is 57,600 blocks and one week is 403,200.
                         </p>
                         <p>
@@ -517,13 +525,21 @@
                                 <tr><td><code>govToken</code></td><td class="mono">0x...2005</td><td class="wrap">govL2P, the non-transferable voting power minted against staked L2P</td></tr>
                                 <tr><td><code>timelock</code></td><td class="mono">0x...2006</td><td class="wrap">The delay between a passed proposal and its execution</td></tr>
                                 <tr><td><code>blsPrecompile</code></td><td class="mono">0x...0066</td><td class="wrap">Verifying BLS signatures</td></tr>
+                                <tr><td><code>L2PPresale</code></td><td class="mono">0x...3000</td><td class="wrap">The presale schedule: its five eras and their prices, counted from the moment it is started</td></tr>
+                                <tr><td><code>WL2P</code></td><td class="mono">0x...3001</td><td class="wrap">Wrapped L2P, an ERC20 exchanged one for one with the native coin</td></tr>
+                                <tr><td><code>L2PVesting</code></td><td class="mono">0x...3002</td><td class="wrap">Holding the team allocation and releasing it on its vesting schedule</td></tr>
                                 </tbody>
                             </table>
                         </div>
                         <p>
-                            Full addresses are in <a href="#appendix-b">Appendix B</a>. Two standard helpers are also in the
-                            genesis state: <code>Multicall3</code> for batching calls, and an ENS registry whose root owner is
-                            preset, supporting a <code>.l2p</code> name space.
+                            Full addresses are in <a href="#appendix-b">Appendix B</a>. A number of standard helpers are also
+                            in the genesis state, at the same addresses they have on Ethereum and the other large EVM chains:
+                            <code>Multicall3</code> for batching calls, an ENS registry whose root owner is preset, supporting
+                            a <code>.l2p</code> name space, CreateX, the deterministic deployment proxy, the Safe singleton
+                            factory, the ERC-1820 registry and the ImmutableCreate2Factory. Placing them in genesis means
+                            nothing has to be bootstrapped with keyless or per-chain-signed transactions after launch, and
+                            contracts such as Permit2, the ERC-4337 EntryPoint, the Safe contracts and Seaport can be deployed
+                            to their usual addresses with ordinary transactions.
                         </p>
                         <p>
                             The reason for <code>govHub</code> deserves a note. A parameter change does not call the target
@@ -569,9 +585,10 @@
                         <span class="section-num">Section 6</span>
                         <h2>The L2P coin</h2>
                         <p>
-                            L2P is the native coin of the chain. It is not a contract balance and there is no ERC20
-                            representing it on its own chain, in the same way that ETH is not an ERC20 on Ethereum. It has
-                            <strong>18 decimals</strong>; one L2P is 10<sup>18</sup> wei.
+                            L2P is the native coin of the chain. It is not a contract balance, in the same way that ETH is
+                            not an ERC20 on Ethereum. It has <strong>18 decimals</strong>; one L2P is 10<sup>18</sup> wei.
+                            For contracts that need an ERC20, genesis includes <code>WL2P</code>, a wrapped form exchanged
+                            one for one with L2P.
                         </p>
                         <p>It has three functions, and they are not separable.</p>
                         <p>
@@ -591,103 +608,207 @@
                             sitting unstaked in a wallet carry no weight at all.
                         </p>
                         <p>
-                            Supply moves in two directions at once: new L2P is emitted per block to the validators securing the
-                            chain, and L2P is burned on every transaction. Both sides are governed parameters rather than
-                            constants, and both are described in the sections that follow.
+                            Circulating supply moves in two directions at once: L2P is paid out of the emission pool once a
+                            day to the validators securing the chain, and L2P is burned on every transaction. Both sides are
+                            governed parameters rather than constants, and both are described in the sections that follow.
                         </p>
                     </section>
 
                     <section class="doc-section" id="tokenomics">
                         <span class="section-num">Section 7</span>
                         <h2>Tokenomics</h2>
-                        <p><strong>Total supply: 166,670,000,000 L2P, fixed at genesis.</strong></p>
+                        <p><strong>Total supply: 105,000,000,000 L2P, fixed at genesis.</strong></p>
                         <p>
-                            Every coin that will ever exist was assigned to one of eight allocations in the genesis state.
-                            There is no mint function anyone can call, no inflation switch and no way to create a coin that was
-                            not accounted for on day one.
+                            Every coin that will ever exist was assigned to one of eight allocations in the genesis state, at
+                            a known address. There is no mint function anyone can call, no inflation switch and no way to
+                            create a coin that was not accounted for on day one. The two largest shares pay the validators
+                            that secure the chain and the projects that make it worth using.
                         </p>
 
                         <h3 id="allocations">7.1 Allocations</h3>
                         <ul class="alloc-list">
-                            <li class="alloc-item alloc-w-30"><span class="alloc-name">Validator and staking emissions</span><span class="alloc-share">30.0%</span><span class="alloc-amount">50.00B</span></li>
-                            <li class="alloc-item alloc-w-175"><span class="alloc-name">Future public distribution (locked)</span><span class="alloc-share">17.5%</span><span class="alloc-amount">29.17B</span></li>
-                            <li class="alloc-item alloc-w-15"><span class="alloc-name">Ecosystem and grants</span><span class="alloc-share">15.0%</span><span class="alloc-amount">25.00B</span></li>
-                            <li class="alloc-item alloc-w-15"><span class="alloc-name">Team (annual vesting)</span><span class="alloc-share">15.0%</span><span class="alloc-amount">25.00B</span></li>
-                            <li class="alloc-item alloc-w-10"><span class="alloc-name">Treasury and reserve</span><span class="alloc-share">10.0%</span><span class="alloc-amount">16.67B</span></li>
-                            <li class="alloc-item alloc-w-6"><span class="alloc-name">Liquidity (phased)</span><span class="alloc-share">6.0%</span><span class="alloc-amount">10.00B</span></li>
-                            <li class="alloc-item alloc-w-45"><span class="alloc-name">Presale round 1 (under &euro;1M)</span><span class="alloc-share">4.5%</span><span class="alloc-amount">7.50B</span></li>
-                            <li class="alloc-item alloc-w-2"><span class="alloc-name">Advisors</span><span class="alloc-share">2.0%</span><span class="alloc-amount">3.33B</span></li>
+                            <li class="alloc-item alloc-w-1905"><span class="alloc-name">Validator and staking emissions</span><span class="alloc-share">19.05%</span><span class="alloc-amount">20.00B</span></li>
+                            <li class="alloc-item alloc-w-1905"><span class="alloc-name">Ecosystem and grants</span><span class="alloc-share">19.05%</span><span class="alloc-amount">20.00B</span></li>
+                            <li class="alloc-item alloc-w-1429"><span class="alloc-name">Team (vesting contract)</span><span class="alloc-share">14.29%</span><span class="alloc-amount">15.00B</span></li>
+                            <li class="alloc-item alloc-w-1429"><span class="alloc-name">Marketing and promotion</span><span class="alloc-share">14.29%</span><span class="alloc-amount">15.00B</span></li>
+                            <li class="alloc-item alloc-w-1429"><span class="alloc-name">Treasury and reserve</span><span class="alloc-share">14.29%</span><span class="alloc-amount">15.00B</span></li>
+                            <li class="alloc-item alloc-w-952"><span class="alloc-name">Liquidity (phased)</span><span class="alloc-share">9.52%</span><span class="alloc-amount">10.00B</span></li>
+                            <li class="alloc-item alloc-w-714"><span class="alloc-name">Presale</span><span class="alloc-share">7.14%</span><span class="alloc-amount">7.50B</span></li>
+                            <li class="alloc-item alloc-w-238"><span class="alloc-name">Advisors</span><span class="alloc-share">2.38%</span><span class="alloc-amount">2.50B</span></li>
                         </ul>
+                        <p>Each allocation was written into genesis at its own address:</p>
+                        <div class="table-scroll">
+                            <table>
+                                <thead>
+                                <tr><th>Allocation</th><th class="num">L2P</th><th>Address</th></tr>
+                                </thead>
+                                <tbody>
+                                <tr><td>Validator and staking emissions</td><td class="num">20,000,000,000</td><td class="mono"><a href="https://l2pscan.com/address/0x0000000000000000000000000000000000001000">0x0000000000000000000000000000000000001000</a></td></tr>
+                                <tr><td>Ecosystem and grants</td><td class="num">20,000,000,000</td><td class="mono"><a href="https://l2pscan.com/address/0xfF92dEFc41bf0e35Af7370Af381dE797f4e89133">0xfF92dEFc41bf0e35Af7370Af381dE797f4e89133</a></td></tr>
+                                <tr><td>Team, in a vesting contract</td><td class="num">15,000,000,000</td><td class="mono"><a href="https://l2pscan.com/address/0x0000000000000000000000000000000000003002">0x0000000000000000000000000000000000003002</a></td></tr>
+                                <tr><td>Marketing and promotion</td><td class="num">15,000,000,000</td><td class="mono"><a href="https://l2pscan.com/address/0x9dcf2B6c2e4D7B19A0E01f2567a5016eA8d2b64c">0x9dcf2B6c2e4D7B19A0E01f2567a5016eA8d2b64c</a></td></tr>
+                                <tr><td>Treasury and reserve</td><td class="num">15,000,000,000</td><td class="mono"><a href="https://l2pscan.com/address/0x0894Dd24ECf50eA464E1cEb13443bCcC9684D314">0x0894Dd24ECf50eA464E1cEb13443bCcC9684D314</a></td></tr>
+                                <tr><td>Liquidity, phased</td><td class="num">10,000,000,000</td><td class="mono"><a href="https://l2pscan.com/address/0xd96092d82E601457b4f215F9F8eabd75AF63b4B6">0xd96092d82E601457b4f215F9F8eabd75AF63b4B6</a></td></tr>
+                                <tr><td>Presale</td><td class="num">7,500,000,000</td><td class="mono"><a href="https://l2pscan.com/address/0xea9277800E88D8fd8292197d2235DDbf8A3Ab1B0">0xea9277800E88D8fd8292197d2235DDbf8A3Ab1B0</a></td></tr>
+                                <tr><td>Advisors</td><td class="num">2,500,000,000</td><td class="mono"><a href="https://l2pscan.com/address/0x2f7D41e6E260C8F3c2D9393713032CE2C45Ef1cd">0x2f7D41e6E260C8F3c2D9393713032CE2C45Ef1cd</a></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            A balance today is not the allocation, because coins move. The treasury address started
+                            24,360,000 below its allocation, for the reasons given below. The starting validators have most
+                            of theirs staked, so their balances look small while the stake sits in the staking contracts. The
+                            team vesting contract shrinks as coins are released. What cannot change is the total: every coin
+                            on the chain added up comes to 105,000,000,000, today and in twenty years.
+                        </p>
 
                         <h3 id="allocation-purpose">7.2 What each allocation is for</h3>
                         <p>
-                            <strong>Validator and staking emissions: 50 billion.</strong> The largest slice by a wide
-                            margin, and it is not held by anyone. It sits in the <code>validatorSet</code> contract and is paid
-                            out block by block to the validators securing the chain, and through them to the people who
-                            delegate to those validators. It is released over approximately ten years on a schedule the
-                            contract enforces. <a href="#emissions">Section 8</a> sets out the schedule in full.
+                            <strong>Validator and staking emissions: 20 billion.</strong> Not held by anyone. It sits in the
+                            <code>validatorSet</code> contract and is paid out every day to the validators securing the chain,
+                            and through them to the people who delegate to those validators. The contract caps what it pays at
+                            7.5% a year on the stake for the first five years and 4% after that, so the pool is sized to what
+                            that cap can ever pay rather than to a round share of the supply.
+                            <a href="#emissions">Section 8</a> sets out the schedule in full.
                         </p>
                         <p>
-                            <strong>Future public distribution: 29.17 billion.</strong> Locked and reserved for
-                            distribution at a later date. Locked means what it says: it is not circulating and it is not being
-                            sold into the market today.
-                        </p>
-                        <p>
-                            <strong>Ecosystem and grants: 25 billion.</strong> For the projects, tools and integrations
+                            <strong>Ecosystem and grants: 20 billion.</strong> For the projects, tools and integrations
                             built on the chain. This is the allocation that pays for the chain being worth using rather than
                             merely existing.
                         </p>
                         <p>
-                            <strong>Team: 25 billion.</strong> Vesting annually rather than unlocking at once, so that
-                            the people building the protocol are paid over the years during which they keep building it.
+                            <strong>Team: 15 billion.</strong> Held by a vesting contract, <code>L2PVesting</code> at
+                            <code>0x0000000000000000000000000000000000003002</code>, not by the team. Nothing is released in
+                            the first year. At the first anniversary of genesis a quarter becomes available, and the rest is
+                            released continuously, second by second, until the fourth anniversary. The contract pays only to
+                            the team address <code>0x5Cf2362A30CDc47006Af86A0555e968687C7522d</code>; that recipient cannot
+                            be changed, and the schedule cannot be cut short or revoked. Anyone may trigger a release, and it
+                            always pays the same address. Coins still in the contract cannot be staked, so they carry no vote.
                         </p>
                         <p>
-                            <strong>Treasury and reserve: 16.67 billion.</strong> Working capital and a buffer for what
-                            nobody planned for.
+                            <strong>Marketing and promotion: 15 billion.</strong> For campaigns, listings, partnerships and
+                            community programmes: the work of getting people to the chain in the first place.
+                        </p>
+                        <p>
+                            <strong>Treasury and reserve: 15 billion.</strong> Working capital, and a buffer for what nobody
+                            planned for. The treasury also paid for what the chain needs running from its very first block, so
+                            those amounts came out of these 15 billion rather than on top of the supply:
+                        </p>
+                        <ul>
+                            <li><strong>The three starting validators, 8 million each</strong>, so that each could meet the seven million self-delegation a validator needs to run at all: <code>0xaE11fB1F89C83c3AD49636A283732A3692dE76f9</code>, <code>0x98803ED812D591B5dcc319652645036B6ca32d1B</code> and <code>0xDa209d1508a1680Be75751d0a9923d74997D90F2</code>.</li>
+                            <li><strong>The system reward pool, 350,000</strong>, the starting balance of the pool that pays for fast finality votes and rewards whoever reports a double sign, at <code>0x0000000000000000000000000000000000001002</code>.</li>
+                            <li><strong>The operations key, 10,000</strong>, gas for the key that starts the presale clock and the emission schedule, each of which can be done once, and that holds the root of the <code>.l2p</code> name registry, at <code>0x1B272dC2635CFBE67116434CdBfD7525f8F5196F</code>. Governance can move the emission right to another address if this key is ever lost.</li>
+                        </ul>
+                        <p>
+                            Together that is 24,360,000 L2P, so the treasury address itself started with 14,975,640,000.
                         </p>
                         <p>
                             <strong>Liquidity: 10 billion.</strong> Phased in rather than deployed in a single event, so
                             that trading L2P is possible without one deployment setting the price on its own.
                         </p>
                         <p>
-                            <strong>Presale round 1: 7.5 billion.</strong> A first round, deliberately small at under
-                            one million euro. Keeping an early raise modest relative to the size of the chain keeps the share
-                            of supply sold early low, and means the project is not funded principally by the people least
-                            equipped to judge the risk. <a href="#regulatory">Section 15</a> covers the regulatory framing of
-                            that threshold.
+                            <strong>Presale: 7.5 billion.</strong> Sold in five equal eras of 1.5 billion, at a price that
+                            starts at $0.0001 and rises by $0.00001 each era to $0.00014. Sold out, it raises $900,000 at most.
+                            That is deliberately modest for a chain of this size: it keeps the share of supply sold early low,
+                            and it means the project is not funded principally by the people least equipped to judge the risk.
+                            Whatever is not sold by the time the presale closes does not go back to the team: it is burned
+                            once a quarter until none is left. <a href="#presale">Section 7.3</a> describes the presale and
+                            <a href="#quarterly-burn">Section 9.4</a> the burn.
                         </p>
                         <p>
-                            <strong>Advisors: 3.33 billion.</strong> The smallest allocation, for the people advising
-                            the project.
+                            <strong>Advisors: 2.5 billion.</strong> The smallest allocation, for the people advising the
+                            project. Each advisor is paid through a vesting contract of their own, the same
+                            <code>L2PVesting</code> contract as the team's, funded from this allocation, rather than by a
+                            transfer they can spend at once.
                         </p>
 
-                        <h3 id="fixed-supply">7.3 What "fixed supply" does and does not mean</h3>
-                        <p>Three clarifications, because the phrase is routinely oversold in this industry.</p>
+                        <h3 id="presale">7.3 The presale</h3>
                         <p>
-                            <strong>It does not mean the number goes down.</strong> The fee burn moves coins to an address that
-                            nobody controls, permanently out of circulation. Those coins are still counted in the total supply
-                            figure. Circulating supply falls; total supply does not.
+                            The presale is available from launch. Its schedule lives on-chain in <code>L2PPresale</code>, a
+                            read-only contract placed in genesis at <code>0x0000000000000000000000000000000000003000</code>.
+                            The contract does not sell anything itself. It answers, for any block, whether the presale is
+                            running, which era it is in and what the price is, so the price a buyer is quoted can be checked
+                            against the chain.
+                        </p>
+                        <div class="table-scroll">
+                            <table class="tabular">
+                                <thead>
+                                <tr><th>Era</th><th class="num">Price per L2P</th><th class="num">L2P on offer</th><th class="num">Raises</th></tr>
+                                </thead>
+                                <tbody>
+                                <tr><td>1</td><td class="num">$0.00010</td><td class="num">1,500,000,000</td><td class="num">$150,000</td></tr>
+                                <tr><td>2</td><td class="num">$0.00011</td><td class="num">1,500,000,000</td><td class="num">$165,000</td></tr>
+                                <tr><td>3</td><td class="num">$0.00012</td><td class="num">1,500,000,000</td><td class="num">$180,000</td></tr>
+                                <tr><td>4</td><td class="num">$0.00013</td><td class="num">1,500,000,000</td><td class="num">$195,000</td></tr>
+                                <tr><td>5</td><td class="num">$0.00014</td><td class="num">1,500,000,000</td><td class="num">$210,000</td></tr>
+                                <tr><td>Total</td><td class="num"></td><td class="num">7,500,000,000</td><td class="num">$900,000</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            The eras are numbered 1 to 5 here and on the presale site; the contract counts them from 0, so
+                            era 1 is <code>era(0)</code>. They are of equal length, 73 days each, and together last 365
+                            days, counted from the moment the presale is started rather than from genesis: the schedule has
+                            no clock until its owner calls <code>start()</code>, which can be done once. That block becomes
+                            the first block of era 1, and every era boundary follows from it, 4,204,800 blocks apart. The contract reports its status, the current era and price, and the blocks left until the
+                            next era, to anyone who asks.
                         </p>
                         <p>
-                            <strong>It does not mean everything is circulating.</strong> Most of the supply starts locked,
-                            vesting or held in a contract. Emissions arrive over ten years, team coins vest annually, the
-                            future public distribution is locked and liquidity is phased. What circulates today is a fraction
-                            of the total, and it grows on published schedules rather than on discretionary decisions.
+                            The presale accepts payment in Bitcoin, Solana, USD Coin, Tether USD, XRP, Monero and Ethereum.
+                            Prices are set in US dollars.
+                        </p>
+                        <p>
+                            A presale balance is also what weighs a wallet's daily vote in the community election described in
+                            <a href="#community-vote">Section 4.3</a>. It does not buy a second vote, only a heavier one, and
+                            with diminishing returns.
+                        </p>
+
+                        <h3 id="coins-no-vote">7.4 Coins that do not vote</h3>
+                        <p>
+                            Voting power on the chain comes from staked L2P, so whoever stakes the most decides the most. The
+                            project holds a large share of the supply, and it would be easy for it to outvote everyone else.
+                            It does not.
+                        </p>
+                        <ul>
+                            <li><strong>Treasury, ecosystem and marketing</strong> are for spending, not for steering. These balances are not staked and are not used to vote.</li>
+                            <li><strong>The team allocation</strong> cannot vote while it sits in the vesting contract, because the contract cannot stake. Coins that have been released belong to the team members, who vote with them like anyone else.</li>
+                        </ul>
+                        <p>
+                            The first is a commitment rather than something a contract enforces. It can be checked all the
+                            same: the addresses are listed above, and staking from them, or moving coins out of them, shows on
+                            the chain like any other transaction. The second is enforced by the contract.
+                        </p>
+
+                        <h3 id="fixed-supply">7.5 What "fixed supply" does and does not mean</h3>
+                        <p>Three clarifications, because the phrase is routinely oversold in this industry.</p>
+                        <p>
+                            <strong>It does not mean the number goes down.</strong> Burning moves coins to an address that
+                            nobody controls, permanently out of circulation. Those coins are still counted in the total supply
+                            figure. That goes for the fee burn on every block and for the quarterly batches of unsold presale
+                            coins alike. Circulating supply falls; total supply does not.
+                        </p>
+                        <p>
+                            <strong>It does not mean everything is circulating.</strong> A large part of the supply starts
+                            locked or held in a contract. Emissions arrive day by day out of the validator set contract, team
+                            coins vest over four years, advisors' coins vest in contracts of their own, the presale runs for a
+                            year and liquidity is phased. What circulates today is a fraction of the total, and it grows on
+                            published schedules rather than on discretionary decisions.
                         </p>
                         <p>
                             <strong>It does mean nobody can print more.</strong> The allocations were set in the genesis state.
                             There is no governance parameter that raises the total, and no key that mints.
                         </p>
 
-                        <h3 id="reading-figures">7.4 Reading these figures honestly</h3>
+                        <h3 id="reading-figures">7.6 Reading these figures honestly</h3>
                         <p>
                             A percentage of a supply says nothing about a price. It says how the coins are divided and roughly
                             when they arrive, which is what a reader needs in order to reason about the rest independently.
                         </p>
                         <p>
-                            The two figures worth watching over time are the emissions, which follow a public schedule that can
-                            be checked block by block, and the burn, which runs against them and is driven by how much the
-                            chain is actually used. Both are visible on-chain, and neither depends on anyone keeping a promise.
+                            The two figures worth watching over time are the emissions, which follow a public rule that can be
+                            checked day by day, and the burn, which runs against them: the fee burn, driven by how much the
+                            chain is actually used, and the quarterly batches of unsold presale coins. Both are visible
+                            on-chain, and neither depends on anyone keeping a promise.
                         </p>
                     </section>
 
@@ -695,93 +816,176 @@
                         <span class="section-num">Section 8</span>
                         <h2>The emission schedule</h2>
                         <p>
-                            The 50 billion L2P emission pool is paid out per block on a schedule the <code>validatorSet</code>
-                            contract enforces.
+                            Just over nineteen percent of the supply, 20 billion L2P, pays the validators that secure the
+                            chain. It is not held by a team wallet or released by a decision: it sits in the
+                            <code>validatorSet</code> contract and is paid out every day, by a rule the contract enforces.
                         </p>
 
                         <h3 id="emission-shape">8.1 The shape of it</h3>
                         <p>
-                            <strong>Year one pays nothing.</strong> Emission starts at block <strong>21,038,400</strong> rather
-                            than at block zero, because the presale runs through the first chain year. Blocks before the start
-                            block emit nothing at all, which is why year one is empty rather than partially paid.
+                            Emission does not pay a fixed amount per block. It pays a yield on the stake, with a ceiling on
+                            both the yield and the stake it is paid on.
                         </p>
                         <p>
-                            <strong>Then 317 L2P per block for five years.</strong> Approximately 6.67 billion per year.
+                            <strong>7.5% a year for the first five years, then 4% a year.</strong> That is the gross yield:
+                            what the validators receive before their commission, on the stake behind them.
                         </p>
                         <p>
-                            <strong>Then the rate halves to 158 L2P per block for another five years.</strong> Approximately
-                            3.32 billion per year.
+                            <strong>Paid on at most 30 billion of stake.</strong> That is the target stake, the amount of
+                            stake the chain considers enough to secure it. Up to that amount every staked L2P earns the full
+                            yield. Above it the total paid stays the same, so it is shared over more stake and the yield per
+                            coin goes down.
                         </p>
                         <p>
-                            <strong>Then it stops.</strong> After the second halving window the contract emits nothing further,
-                            because the pool is empty.
+                            Once a day, at the breathe block, the first block after midnight UTC, the contract works out what
+                            is owed since the previous day:
                         </p>
-
-                        <h3 id="emission-year-by-year">8.2 Year by year</h3>
+<pre><code>emission = yield × min(total stake, 30 billion) × time elapsed / 365 days</code></pre>
+                        <p>
+                            and pays it to the validators in the active set, in proportion to their stake. Jailed validators
+                            and validators in maintenance get nothing, and neither does stake behind a validator that is not
+                            elected.
+                        </p>
+                        <p>
+                            Stake earns for a day only if it was there for the whole day. Each validator is paid on the smaller
+                            of its stake at the previous breathe block and its stake now, so coins delegated just before
+                            midnight start earning from that midnight, and coins that leave during the day are not paid for it.
+                            Moving a large amount in shortly before the payout and out again afterwards earns nothing.
+                        </p>
                         <div class="table-scroll">
                             <table class="tabular">
                                 <thead>
-                                <tr><th>Year</th><th>Blocks</th><th class="num">Rate</th><th class="num">Emission</th><th class="num">Cumulative</th><th class="num">Pool left</th><th class="num">Paid</th></tr>
+                                <tr><th>Total staked</th><th class="num">Yield, years 1 to 5</th><th class="num">Yield, from year 6</th><th class="num">Paid per year, years 1 to 5</th></tr>
                                 </thead>
                                 <tbody>
-                                <tr><td>Y1</td><td class="mono">0 - 21,038,400</td><td class="num">0</td><td class="num">0.00B</td><td class="num">0.00B</td><td class="num">50.00B</td><td class="num">0.0%</td></tr>
-                                <tr><td>Y2</td><td class="mono">21,038,400 - 42,076,800</td><td class="num">317</td><td class="num">6.67B</td><td class="num">6.67B</td><td class="num">43.33B</td><td class="num">13.3%</td></tr>
-                                <tr><td>Y3</td><td class="mono">42,076,800 - 63,115,200</td><td class="num">317</td><td class="num">6.67B</td><td class="num">13.34B</td><td class="num">36.66B</td><td class="num">26.7%</td></tr>
-                                <tr><td>Y4</td><td class="mono">63,115,200 - 84,153,600</td><td class="num">317</td><td class="num">6.67B</td><td class="num">20.01B</td><td class="num">29.99B</td><td class="num">40.0%</td></tr>
-                                <tr><td>Y5</td><td class="mono">84,153,600 - 105,192,000</td><td class="num">317</td><td class="num">6.67B</td><td class="num">26.68B</td><td class="num">23.32B</td><td class="num">53.4%</td></tr>
-                                <tr><td>Y6</td><td class="mono">105,192,000 - 126,230,400</td><td class="num">317</td><td class="num">6.67B</td><td class="num">33.35B</td><td class="num">16.65B</td><td class="num">66.7%</td></tr>
-                                <tr><td>Y7</td><td class="mono">126,230,400 - 147,268,800</td><td class="num">158</td><td class="num">3.32B</td><td class="num">36.67B</td><td class="num">13.33B</td><td class="num">73.3%</td></tr>
-                                <tr><td>Y8</td><td class="mono">147,268,800 - 168,307,200</td><td class="num">158</td><td class="num">3.32B</td><td class="num">39.99B</td><td class="num">10.01B</td><td class="num">80.0%</td></tr>
-                                <tr><td>Y9</td><td class="mono">168,307,200 - 189,345,600</td><td class="num">158</td><td class="num">3.32B</td><td class="num">43.32B</td><td class="num">6.68B</td><td class="num">86.6%</td></tr>
-                                <tr><td>Y10</td><td class="mono">189,345,600 - 210,384,000</td><td class="num">158</td><td class="num">3.32B</td><td class="num">46.64B</td><td class="num">3.36B</td><td class="num">93.3%</td></tr>
-                                <tr><td>Y11</td><td class="mono">210,384,000 - 231,422,400</td><td class="num">158</td><td class="num">3.32B</td><td class="num">49.97B</td><td class="num">0.03B</td><td class="num">99.9%</td></tr>
+                                <tr><td>10 billion</td><td class="num">7.5%</td><td class="num">4.0%</td><td class="num">0.75B</td></tr>
+                                <tr><td>20 billion</td><td class="num">7.5%</td><td class="num">4.0%</td><td class="num">1.50B</td></tr>
+                                <tr><td>30 billion</td><td class="num">7.5%</td><td class="num">4.0%</td><td class="num">2.25B</td></tr>
+                                <tr><td>45 billion</td><td class="num">5.0%</td><td class="num">2.7%</td><td class="num">2.25B</td></tr>
+                                <tr><td>60 billion</td><td class="num">3.75%</td><td class="num">2.0%</td><td class="num">2.25B</td></tr>
                                 </tbody>
                             </table>
                         </div>
                         <p>
-                            The halving lands at block <strong>126,230,400</strong>, which is 105,192,000 blocks after emission
-                            began. The second window ends at block <strong>231,422,400</strong>, by which point the pool is all
-                            but empty.
+                            That is the yield from emission alone, before the validator's commission. A share of transaction
+                            fees comes on top of it.
+                        </p>
+                        <p>
+                            The reason for this shape is that a fixed reward per block pays the same amount whether little or
+                            much is staked. With little stake that means an absurd yield for the few who are in, and with a lot
+                            of stake it means paying for more security than the chain needs. Neither is a good use of coins that
+                            belong to everyone. Tying emission to the stake fixes the first problem: the yield can never be
+                            higher than 7.5%, however little is staked. The target fixes the second: above 30 billion, more
+                            stake does not cost the pool anything more, and the falling yield nudges the stake back towards the
+                            target.
+                        </p>
+                        <p>
+                            <strong>It does not start at genesis.</strong> The emission starter, an address set at genesis,
+                            starts it once by calling <code>startEmission()</code> on the validator set contract. The schedule
+                            then begins at the next midnight UTC, and the five-year phases count from that moment. They are
+                            measured in time, not in blocks, so five years stay five years even if the block interval ever
+                            changes. Nothing is paid before that moment, and nothing is paid for it afterwards: the pool does
+                            not catch up on days before the start.
+                        </p>
+
+                        <h3 id="emission-year-by-year">8.2 Year by year, at the most</h3>
+                        <p>
+                            The table shows the most the pool can pay, which is what happens when at least 30 billion is staked
+                            the whole time. With less stake, less is paid and the pool lasts longer. Years count from the start
+                            of emission, not from genesis.
+                        </p>
+                        <div class="table-scroll">
+                            <table class="tabular">
+                                <thead>
+                                <tr><th>Year</th><th class="num">Yield</th><th class="num">Most paid</th><th class="num">Most paid in total</th><th class="num">Pool left at least</th><th class="num">Paid</th></tr>
+                                </thead>
+                                <tbody>
+                                <tr><td>Y1</td><td class="num">7.5%</td><td class="num">2.25B</td><td class="num">2.25B</td><td class="num">17.75B</td><td class="num">11.3%</td></tr>
+                                <tr><td>Y2</td><td class="num">7.5%</td><td class="num">2.25B</td><td class="num">4.50B</td><td class="num">15.50B</td><td class="num">22.5%</td></tr>
+                                <tr><td>Y3</td><td class="num">7.5%</td><td class="num">2.25B</td><td class="num">6.75B</td><td class="num">13.25B</td><td class="num">33.8%</td></tr>
+                                <tr><td>Y4</td><td class="num">7.5%</td><td class="num">2.25B</td><td class="num">9.00B</td><td class="num">11.00B</td><td class="num">45.0%</td></tr>
+                                <tr><td>Y5</td><td class="num">7.5%</td><td class="num">2.25B</td><td class="num">11.25B</td><td class="num">8.75B</td><td class="num">56.3%</td></tr>
+                                <tr><td>Y6</td><td class="num">4%</td><td class="num">1.20B</td><td class="num">12.45B</td><td class="num">7.55B</td><td class="num">62.3%</td></tr>
+                                <tr><td>Y7</td><td class="num">4%</td><td class="num">1.20B</td><td class="num">13.65B</td><td class="num">6.35B</td><td class="num">68.3%</td></tr>
+                                <tr><td>Y8</td><td class="num">4%</td><td class="num">1.20B</td><td class="num">14.85B</td><td class="num">5.15B</td><td class="num">74.3%</td></tr>
+                                <tr><td>Y9</td><td class="num">4%</td><td class="num">1.20B</td><td class="num">16.05B</td><td class="num">3.95B</td><td class="num">80.3%</td></tr>
+                                <tr><td>Y10</td><td class="num">4%</td><td class="num">1.20B</td><td class="num">17.25B</td><td class="num">2.75B</td><td class="num">86.3%</td></tr>
+                                <tr><td>Y11</td><td class="num">4%</td><td class="num">1.20B</td><td class="num">18.45B</td><td class="num">1.55B</td><td class="num">92.3%</td></tr>
+                                <tr><td>Y12</td><td class="num">4%</td><td class="num">1.20B</td><td class="num">19.65B</td><td class="num">0.35B</td><td class="num">98.3%</td></tr>
+                                <tr><td>Y13</td><td class="num">4%</td><td class="num">0.35B</td><td class="num">20.00B</td><td class="num">0</td><td class="num">100%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            At most 2.25 billion a year for five years and 1.2 billion a year after that: 17.25 billion in ten
+                            years. After year ten the yield stays at 4% until the pool is empty, which at full stake is a
+                            little over twelve years after emission started. If less than the target is staked, it is longer.
                         </p>
 
                         <h3 id="emission-contract">8.3 How the contract does it</h3>
-                        <p>Four values drive the entire table, and all four are readable on-chain.</p>
+                        <p>Four values and two constants drive the entire table, and all of them are readable on-chain.</p>
                         <div class="table-scroll">
                             <table>
                                 <thead>
                                 <tr><th>Parameter</th><th>Value at genesis</th><th class="wrap">What it does</th></tr>
                                 </thead>
                                 <tbody>
-                                <tr><td><code>emissionRatePerBlock</code></td><td>317 L2P</td><td class="wrap">Created per block in the first window</td></tr>
-                                <tr><td><code>emissionHalvingPeriod</code></td><td>105,192,000 blocks</td><td class="wrap">Length of a window, about five years</td></tr>
-                                <tr><td><code>emissionMaxHalvings</code></td><td>2</td><td class="wrap">Windows paid before emission stops</td></tr>
-                                <tr><td>Emission pool</td><td>50,000,000,000 L2P</td><td class="wrap">The total the contract can ever pay out</td></tr>
+                                <tr><td><code>emissionAprPhaseOne</code></td><td>750 (7.5%)</td><td class="wrap">Yearly yield on the stake for the first five years, over a base of 10,000</td></tr>
+                                <tr><td><code>emissionAprPhaseTwo</code></td><td>400 (4%)</td><td class="wrap">Yearly yield on the stake from year six until the pool is empty</td></tr>
+                                <tr><td><code>emissionTargetStake</code></td><td>30,000,000,000 L2P</td><td class="wrap">The most stake the yield is paid on</td></tr>
+                                <tr><td><code>emissionStarter</code></td><td>Set at genesis</td><td class="wrap">The address that may start emission, once</td></tr>
+                                <tr><td>Phase length</td><td>5 years</td><td class="wrap">Fixed in the contract, five years of 365 days</td></tr>
+                                <tr><td>Emission pool</td><td>20,000,000,000 L2P</td><td class="wrap">The total the contract can ever pay out</td></tr>
                                 </tbody>
                             </table>
                         </div>
                         <p>
-                            Each block, the contract determines which window it is in, halves the rate once per completed
-                            window, and pays the resulting amount to the active validators in proportion to their voting power.
-                            Jailed validators receive nothing. Once the pool is empty, or once the window counter passes the
-                            maximum, payments stop regardless of anything else.
+                            At each breathe block the contract reads the stake of every validator in the set from that
+                            validator's staking pool, and whether the stake hub has jailed it. It compares that stake with the
+                            snapshot it took at the previous breathe block, pays on the smaller of the two, and shares the day's
+                            emission in proportion. Jailed validators, validators in maintenance and validators the stake hub
+                            does not know get nothing and add nothing to the total. A day without any stake is not paid out
+                            later. Validators that join the set get their first snapshot in the breathe block that elects them
+                            and earn from then on.
+                        </p>
+                        <p>
+                            The emission is paid into the validators' staking pools, so a delegator's share grows without anyone
+                            claiming anything, and what is paid counts as stake from that moment: the yield compounds. Once the
+                            pool is empty, payments stop regardless of anything else.
+                        </p>
+                        <p>
+                            <code>startEmission()</code> does not start anything in the block it is called in. It records the
+                            next midnight UTC as <code>emissionStartTime</code>, and the first breathe block at or after that
+                            moment starts the schedule; that block pays nothing itself, and the day that follows it is the first
+                            one paid out. The call works once. <code>emissionStartTime()</code>,
+                            <code>emissionPoolRemaining()</code> and <code>totalEmitted()</code> on the validator set report
+                            when the schedule started, what is left and what has been paid.
                         </p>
 
                         <h3 id="emission-governance">8.4 What governance can and cannot do to it</h3>
                         <p>
-                            The rate, the halving period and the number of halvings are governance parameters, so a proposal
-                            that passes and clears the timelock can adjust them within limits the contract enforces:
+                            The two yields and the target stake are governance parameters, so a proposal that passes and clears
+                            the timelock can change them, but never above where they started. The genesis values are the
+                            ceilings:
                         </p>
                         <ul>
-                            <li>the rate may be set anywhere from <strong>1 to 317</strong> L2P per block;</li>
-                            <li>the halving period may not be shorter than <strong>1,000,000 blocks</strong>;</li>
-                            <li>the number of halvings must stay between <strong>1 and 20</strong>.</li>
+                            <li><code>emissionAprPhaseOne</code> may be set anywhere from <strong>1 to 750</strong>, so from 0.01% to 7.5%;</li>
+                            <li><code>emissionAprPhaseTwo</code> anywhere from <strong>1 to 400</strong>, so from 0.01% to 4%;</li>
+                            <li><code>emissionTargetStake</code> anywhere from <strong>1 L2P to 30 billion</strong>.</li>
                         </ul>
                         <p>
-                            The first limit is the important one. 317 is the genesis rate and also the ceiling. Governance can
-                            slow issuance down and can never speed it up.
+                            A value that was lowered can be raised again later, but never past its ceiling. That is what makes
+                            the table above a promise rather than a forecast. Governance can make emission slower; it can never
+                            make it pay more than the table says. The phase length is fixed in the contract and is not a
+                            parameter.
                         </p>
                         <p>
-                            What cannot be changed at all is the pool. The 50 billion is what the contract holds, and no
+                            Governance can also move the right to start emission to another address with the
+                            <code>emissionStarter</code> parameter, which is the recovery path if the key is ever lost, since
+                            genesis cannot be redone. The start itself can still happen only once.
+                        </p>
+                        <p>
+                            What cannot be changed at all is the pool. The 20 billion is what the contract holds, and no
                             parameter can make it pay out more than it has. Governance controls the pace; it does not control
                             the total.
                         </p>
@@ -789,7 +993,7 @@
                         <h3 id="after-emissions">8.5 After emissions end</h3>
                         <p>
                             Validators continue to earn from transaction fees, which is the other half of validator income and
-                            the half that does not run out. What ends is the creation of new coins. From that point the only
+                            the half that does not run out. What ends is the payout from the pool. From that point the only
                             mechanism changing the circulating supply is the burn, which runs in the opposite direction.
                         </p>
                     </section>
@@ -863,15 +1067,92 @@
                             clears the timelock. No individual can turn the burn up or down.
                         </p>
                         <p>
-                            <strong>The burn is usage-driven.</strong> A quiet chain burns almost nothing; a busy chain burns a
-                            great deal. It is not a schedule that runs whether or not anyone shows up, which means the burn
-                            rate is an honest signal of how much the chain is actually being used.
+                            <strong>The fee burn is usage-driven.</strong> A quiet chain burns almost nothing; a busy chain
+                            burns a great deal. It is not a schedule that runs whether or not anyone shows up, which means the
+                            fee burn rate is an honest signal of how much the chain is actually being used. The one burn that
+                            does run on a schedule, the quarterly burn of unsold presale coins, is described separately below
+                            and is kept apart in the figures for that reason.
                         </p>
                         <p>It is not a promise about price. The burn removes coins. What that is worth is a matter for the market.</p>
                         <p>
                             Every burn figure is published at <a href="https://l2pburn.info">l2pburn.info</a>, which reads the
                             burn address balance, the burn ratio and the last indexed block directly from the chain, and shows
                             the burn per day. Each figure there can be checked independently against the block explorer.
+                        </p>
+
+                        <h3 id="quarterly-burn">9.4 The quarterly burn</h3>
+                        <p>
+                            Whatever is left of the presale allocation when the presale closes does not go back to the team. It
+                            is burned once a quarter, until none of it is left, on top of the fee burn that runs every block.
+                            The amount comes from the same formula BNB uses for its quarterly auto-burn:
+                        </p>
+<pre><code>B = N × M / (P + K)</code></pre>
+                        <div class="table-scroll">
+                            <table>
+                                <thead>
+                                <tr><th>Term</th><th class="wrap">What it is</th></tr>
+                                </thead>
+                                <tbody>
+                                <tr><td><strong>B</strong></td><td class="wrap">The amount burned for the quarter, in L2P</td></tr>
+                                <tr><td><strong>N</strong></td><td class="wrap">The quarter's block count, counted at 1.5 seconds per block</td></tr>
+                                <tr><td><strong>P</strong></td><td class="wrap">The median L2P/USD rate over the quarter, taken from the rate the on-chain price oracle held at the end of every hour</td></tr>
+                                <tr><td><strong>K</strong></td><td class="wrap">The price anchor: $0.0001, the presale's starting price. P and K are in the same unit</td></tr>
+                                <tr><td><strong>M</strong></td><td class="wrap">The multiplier, fixed once when the presale closes</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            <strong>Counting N.</strong> R is the quarter's last block minus its first block plus one. At
+                            today's block time of 1.5 seconds, N = R. Should the chain ever get faster, a stretch of R blocks
+                            at t seconds counts as &lfloor;R &times; t &divide; 1.5&rfloor;, so quarters stay comparable. A
+                            quarter that crosses such a change is counted per segment, each segment rounded down, and the
+                            results are added up. This is BNB's rule, with L2P's own 1.5 seconds as the basis where BNB uses
+                            its original 3.
+                        </p>
+                        <p>
+                            <strong>Setting M.</strong> When the presale closes, M is set so that at a price of K the whole
+                            remainder U is gone in five years, twenty quarters: M = U &times; 2K &divide; (20 &times;
+                            5,259,600), where 5,259,600 is the block count of an average quarter at 1.5 seconds. M does not
+                            change after that.
+                        </p>
+                        <p>
+                            <strong>What the price does.</strong> B falls as the price rises and grows as it falls: the higher
+                            L2P is valued, the fewer coins it takes to burn the same value. With half of the presale unsold, a
+                            remainder of 3.75 billion, and the median price holding steady:
+                        </p>
+                        <div class="table-scroll">
+                            <table class="tabular">
+                                <thead>
+                                <tr><th>Median price over the quarter</th><th class="num">Burned per quarter</th><th class="num">Remainder gone in</th></tr>
+                                </thead>
+                                <tbody>
+                                <tr><td>$0.00005, half of K</td><td class="num">250 million</td><td class="num">3&frac34; years</td></tr>
+                                <tr><td>$0.0001, equal to K</td><td class="num">187.5 million</td><td class="num">5 years</td></tr>
+                                <tr><td>$0.0002, twice K</td><td class="num">125 million</td><td class="num">7&frac12; years</td></tr>
+                                <tr><td>$0.0004, four times K</td><td class="num">75 million</td><td class="num">12&frac12; years</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            Real quarters differ slightly in length, so the actual figures move a little around these.
+                        </p>
+                        <p>
+                            The price oracle is the same one the <code>.l2p</code> name registry prices its names with. Its
+                            rate is kept current by a key the project holds, within bounds the oracle enforces, rather than by
+                            an external market feed. Every update is a transaction on the chain, so the hourly rates behind P
+                            can be read back and the median recomputed by anyone.
+                        </p>
+                        <p>
+                            <strong>When and how.</strong> Quarters are calendar quarters in UTC. The first batch covers the
+                            first full quarter after the presale closes and is sent shortly after that quarter ends. Each batch
+                            is an ordinary transfer from the presale allocation to the burn address, published with its R, N, P
+                            and B, so anyone can recompute it from the chain. The last batch is whatever is left, even when the
+                            formula would give more.
+                        </p>
+                        <p>
+                            Every batch lands on the burn address, so it raises the total burned at
+                            <a href="https://l2pburn.info">l2pburn.info</a> on the day it arrives. It is not a fee burn, so it
+                            does not show in the daily figures there.
                         </p>
                     </section>
 
@@ -892,9 +1173,11 @@
                         </p>
                         <p>
                             <strong>What it earns.</strong> A share of the gas fees on the blocks it produces, minus the
-                            portion that is burned and the portion routed to the system reward pot, and block emissions on the
-                            schedule in <a href="#emissions">Section 8</a>. The operator keeps a commission on what its
-                            delegators earn; the rest is theirs.
+                            portion that is burned and the portion routed to the system reward pot, and emission from the pool:
+                            a yield on the stake behind it, paid once a day on the rule in <a href="#emissions">Section 8</a>.
+                            A validator that is jailed or in maintenance when the day's emission is paid receives none of it.
+                            Emission is paid only on stake that was in place for the whole day. The operator keeps
+                            a commission on what its delegators earn; the rest is theirs.
                         </p>
                         <p>
                             <strong>What it risks.</strong> Two behaviours cost stake, and the amounts are set against the
@@ -1039,9 +1322,10 @@
 
                         <h3 id="lifecycle">11.2 The lifecycle</h3>
                         <p>
-                            <strong>1. Propose.</strong> Anyone holding at least <code>proposalThreshold</code> govL2P (700,000
-                            at genesis) may submit. A proposal is either a parameter change, which is executable, or a signal
-                            proposal, which records what the community wants without changing anything by itself.
+                            <strong>1. Propose.</strong> Anyone holding at least <code>proposalThreshold</code> govL2P
+                            (30,000,000 at genesis) may submit, one live proposal at a time. A proposal is either a parameter
+                            change, which is executable, or a signal proposal, which records what the community wants without
+                            changing anything by itself.
                         </p>
                         <p>
                             <strong>2. Vote.</strong> Voting opens after <code>votingDelay</code> (0 blocks at genesis, so
@@ -1092,8 +1376,8 @@
                         </p>
                         <p>
                             Two conventions are worth internalising. Percentages are written as whole numbers over a base, and
-                            the base is not the same everywhere: block fee shares and commission run over 10,000, so
-                            <code>1000</code> is 10%, while the redelegation fee runs over 100,000, so <code>2</code> is
+                            the base is not the same everywhere: block fee shares, emission yields and commission run over
+                            10,000, so <code>1000</code> is 10%, while the redelegation fee runs over 100,000, so <code>2</code> is
                             0.002%. Durations are always in blocks, at 1.5 seconds per block.
                         </p>
                         <p>
@@ -1113,6 +1397,12 @@
                                     mechanisms against an active exploit, and they are a meaningful amount of trust. A reader
                                     evaluating this protocol should weigh them as such.
                                 </p>
+                                <p>
+                                    Separately, the operations key may do two things once each: start the presale clock and
+                                    start the emission schedule. Neither can be undone or repeated, and neither changes what the
+                                    contracts will pay. The right to start emission is the <code>emissionStarter</code>
+                                    parameter, so governance can move it as well.
+                                </p>
                             </div>
                         </div>
 
@@ -1123,10 +1413,11 @@
                         </p>
                         <p>
                             <strong>Governance itself.</strong> The governor accepts nothing at all until
-                            <strong>35,000,000 govL2P</strong> exists, which is five fully staked validators. Until that point
-                            no proposal can be submitted, which prevents a small amount of stake from steering the chain in its
-                            first weeks. It opens on its own the moment the threshold is passed. Nobody has to unlock it and
-                            nobody can unlock it early.
+                            <strong>1,750,000,000 govL2P</strong> exists, which is about six percent of the 30 billion the
+                            chain aims to have staked. Until that point no proposal can be submitted, which prevents a small
+                            amount of stake from steering the chain in its first weeks. It opens on its own the moment the
+                            threshold is passed, and once open it stays open. Nobody has to unlock it and nobody can unlock it
+                            early.
                         </p>
                         <p>
                             <strong>Candidate rotation.</strong> <code>maxNumOfCandidates</code> and
@@ -1176,6 +1467,16 @@
                                 <span class="link-card-title"><i class="fa-solid fa-check-to-slot" aria-hidden="true"></i>Community vote</span>
                                 <span class="link-card-url">voting.l2protocol.com</span>
                                 <p>The election that decides which project gets the next chain, with one free signed vote per wallet per day.</p>
+                            </a>
+                            <a class="link-card" href="https://presale.l2protocol.com">
+                                <span class="link-card-title"><i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>Presale</span>
+                                <span class="link-card-url">presale.l2protocol.com</span>
+                                <p>The presale of L2P in five eras, with the current era, its price and the time left in it, paid for in seven accepted assets.</p>
+                            </a>
+                            <a class="link-card" href="https://names.l2protocol.com">
+                                <span class="link-card-title"><i class="fa-solid fa-signature" aria-hidden="true"></i>Names</span>
+                                <span class="link-card-url">names.l2protocol.com</span>
+                                <p>Registering and managing <code>.l2p</code> names on the chain's ENS registry, priced in US dollars and paid in L2P.</p>
                             </a>
                             <a class="link-card" href="https://l2pburn.info">
                                 <span class="link-card-title"><i class="fa-solid fa-fire" aria-hidden="true"></i>Burn overview</span>
@@ -1273,7 +1574,9 @@ l2protocol = "https://rpc.l2protocol.com"</code></pre>
                             Contracts deploy exactly as they do on any EVM chain. Source verification is published through the
                             explorer so that others can read and call a contract without trusting its author's
                             description of it. The chain also ships an ENS registry with a <code>.l2p</code> name space, so
-                            that addresses can carry human-readable names.
+                            that addresses can carry human-readable names. Names are registered at
+                            <a href="https://names.l2protocol.com">names.l2protocol.com</a>, priced in US dollars and paid in
+                            L2P.
                         </p>
 
                         <h3 id="reading-parameter">13.5 Reading a parameter</h3>
@@ -1381,12 +1684,13 @@ l2protocol = "https://rpc.l2protocol.com"</code></pre>
                             within the scope of the European Union's Markets in Crypto-Assets Regulation (MiCAR).
                         </p>
                         <p>
-                            The first presale round is sized at under one million euro over a twelve-month period. Under MiCAR,
-                            an offer to the public of a crypto-asset other than an asset-referenced token or an e-money token
-                            that does not exceed EUR 1,000,000 over twelve months falls outside the obligation to publish a
-                            regulated crypto-asset whitepaper and to notify a competent authority. Round 1 is scaled to that
-                            threshold deliberately: the intent is a modest raise relative to the size of the chain, keeping the
-                            share of supply sold early low.
+                            The presale raises at most $900,000, the total of its five eras sold out, over 365 days from the
+                            moment it is started. At current exchange rates that is below one million euro. Under MiCAR, an
+                            offer to the public of a crypto-asset other than an asset-referenced token or an e-money token that
+                            does not exceed EUR 1,000,000 over twelve months falls outside the obligation to publish a
+                            regulated crypto-asset whitepaper and to notify a competent authority. The presale is scaled to
+                            stay under that threshold deliberately: the intent is a modest raise relative to the size of the
+                            chain, keeping the share of supply sold early low.
                         </p>
                         <p>
                             This document is published voluntarily for transparency. It is not a MiCAR crypto-asset whitepaper
@@ -1425,11 +1729,11 @@ l2protocol = "https://rpc.l2protocol.com"</code></pre>
                         </p>
                         <p><strong>Market risk.</strong> The value of L2P may fall, including to zero. The burn removes coins from circulation; it does not create demand, guarantee liquidity or support a price. Nothing in this document is a forecast.</p>
                         <p><strong>Liquidity risk.</strong> The liquidity allocation is phased in rather than deployed at once. Market depth may be thin, and there is no guarantee that L2P will be listed on any particular venue or remain listed.</p>
-                        <p><strong>Supply risk.</strong> A substantial share of the total supply is locked, vesting or held in a contract at the time of writing. Circulating supply grows over time on published schedules. Future unlocks and the future public distribution will increase the coins available to the market.</p>
+                        <p><strong>Supply risk.</strong> A substantial share of the total supply is locked, vesting or held in a contract at the time of writing. Circulating supply grows over time on published schedules. Daily emissions, the team vesting from the first anniversary of genesis, the advisors' vesting, the phased liquidity and spending from the treasury, ecosystem and marketing allocations will all increase the coins available to the market.</p>
                         <p><strong>Slashing risk.</strong> Delegated stake is exposed to the behaviour of the validator it backs. A slashed validator's pool shrinks and every delegator's share shrinks with it. Undelegation is subject to the unbond period, during which the stake cannot be moved or sold.</p>
-                        <p><strong>Validator concentration risk.</strong> Early in a chain's life the set is small. Until the set grows, a small number of operators produce most blocks, and the governance activation threshold of five fully staked validators is a floor, not a guarantee of decentralisation.</p>
-                        <p><strong>Governance risk.</strong> Governance can change the economics of the chain, including the burn ratio, the emission pace, the slashing amounts and the rules of governance itself, within the ranges the contracts enforce. A holder who does not stake has no vote on any of it. A holder who does stake may be outvoted.</p>
-                        <p><strong>Privileged address risk.</strong> Two addresses can pause staking and governance respectively. They are a safety mechanism and they are also a trust assumption.</p>
+                        <p><strong>Validator concentration risk.</strong> Early in a chain's life the set is small: it starts with three validators, each funded from the treasury. Until the set grows, a small number of operators produce most blocks, and the governance activation threshold of 1,750,000,000 govL2P is a floor, not a guarantee of decentralisation.</p>
+                        <p><strong>Governance risk.</strong> Governance can change the economics of the chain, including the burn ratio, the emission yields and target stake, the slashing amounts and the rules of governance itself, within the ranges the contracts enforce. A holder who does not stake has no vote on any of it. A holder who does stake may be outvoted.</p>
+                        <p><strong>Privileged address risk.</strong> Two addresses can pause staking and governance respectively. They are a safety mechanism and they are also a trust assumption. The operations key starts the presale clock and the emission schedule, once each, and the L2P/USD rate used for name prices and for the quarterly burn is kept current by a key the project holds.</p>
                         <p><strong>Smart contract risk.</strong> The system contracts, the bridge and any application deployed on the chain may contain defects. A defect in a bridge is the highest-consequence failure mode in any multi-chain system.</p>
                         <p><strong>Bridge and counterparty chain risk.</strong> A bridge depends on assumptions about both chains it connects, including their finality. A reorganisation, halt or consensus failure on either side can affect assets in transit.</p>
                         <p><strong>Operational and key-management risk.</strong> Validator operators can lose funds through their own configuration errors, of which running two nodes on the same consensus key is the most expensive. Users can lose funds through phishing, seed-phrase compromise or sending to the wrong address. None of these is recoverable.</p>
@@ -1489,13 +1793,13 @@ l2protocol = "https://rpc.l2protocol.com"</code></pre>
                         <p>
                             <strong>Phase 1: Genesis and bootstrap.</strong> Chain live at chain ID 12216. System
                             contracts deployed in the genesis state. Explorer, RPC, chain feed, staking site, governance site,
-                            voting site, burn site, network status and support live. Presale round 1 running through chain year
-                            one. Emissions do not start until block 21,038,400.
+                            voting site, burn site, network status and support live.
                         </p>
                         <p>
                             <strong>Phase 2: Validator set growth.</strong> Recruit and onboard independent validator
-                            operators. Governance unlocks automatically at 35,000,000 govL2P, five fully staked validators.
-                            Emissions begin at the start block.
+                            operators. Emission is started with the one-time <code>startEmission()</code> call and pays out
+                            from the following midnight UTC. Governance unlocks automatically at 1,750,000,000 govL2P, about
+                            six percent of the 30 billion target stake.
                         </p>
                         <p>
                             <strong>Phase 3: Governance activation.</strong> First parameter proposals. Configure
@@ -1510,7 +1814,7 @@ l2protocol = "https://rpc.l2protocol.com"</code></pre>
                         </p>
                         <p>
                             <strong>Phase 5: Ecosystem.</strong> Deploy the ecosystem and grants allocation against
-                            applications built on the chains. Phase in liquidity. Future public distribution.
+                            applications built on the chains. Phase in liquidity.
                         </p>
                     </section>
 
@@ -1540,13 +1844,18 @@ l2protocol = "https://rpc.l2protocol.com"</code></pre>
                         </div>
 
                         <h3 id="params-emissions">Emissions</h3>
+                        <p>
+                            Every emission value can be lowered and none can be raised beyond what genesis set. The pool of
+                            20,000,000,000 L2P and the five-year length of the first phase are constants, not parameters.
+                        </p>
                         <div class="table-scroll">
                             <table>
                                 <thead><tr><th>Parameter</th><th>Genesis</th><th class="wrap">Range</th></tr></thead>
                                 <tbody>
-                                <tr><td><code>emissionRatePerBlock</code></td><td>317</td><td class="wrap">1 to 317</td></tr>
-                                <tr><td><code>emissionHalvingPeriod</code></td><td>105,192,000 (~5 years)</td><td class="wrap">At least 1,000,000 (~17 days)</td></tr>
-                                <tr><td><code>emissionMaxHalvings</code></td><td>2</td><td class="wrap">1 to 20</td></tr>
+                                <tr><td><code>emissionAprPhaseOne</code></td><td>750 (7.5%, base 10,000)</td><td class="wrap">1 to 750</td></tr>
+                                <tr><td><code>emissionAprPhaseTwo</code></td><td>400 (4%, base 10,000)</td><td class="wrap">1 to 400</td></tr>
+                                <tr><td><code>emissionTargetStake</code></td><td>30,000,000,000 L2P</td><td class="wrap">1 L2P to 30,000,000,000 L2P</td></tr>
+                                <tr><td><code>emissionStarter</code></td><td>Set at genesis</td><td class="wrap">Any real address</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -1616,10 +1925,10 @@ l2protocol = "https://rpc.l2protocol.com"</code></pre>
                             <table>
                                 <thead><tr><th>Parameter</th><th>Genesis</th><th class="wrap">Range</th></tr></thead>
                                 <tbody>
-                                <tr><td><code>votingDelay</code></td><td>0</td><td class="wrap">0 blocks to 24 hours</td></tr>
+                                <tr><td><code>votingDelay</code></td><td>0</td><td class="wrap">1 block to 24 hours; once changed, it cannot go back to 0</td></tr>
                                 <tr><td><code>votingPeriod</code></td><td>403,200 (7 days)</td><td class="wrap">1 block to 30 days</td></tr>
                                 <tr><td><code>minPeriodAfterQuorum</code></td><td>57,600 (1 day)</td><td class="wrap">1 block to 2 days</td></tr>
-                                <tr><td><code>proposalThreshold</code></td><td>700,000 govL2P</td><td class="wrap">1 to 35,000,000</td></tr>
+                                <tr><td><code>proposalThreshold</code></td><td>30,000,000 govL2P</td><td class="wrap">1 to 300,000,000</td></tr>
                                 <tr><td><code>quorumNumerator</code></td><td>10 (10%)</td><td class="wrap">5 to 20</td></tr>
                                 <tr><td><code>governorProtector</code></td><td>Set at genesis</td><td class="wrap">Any real address</td></tr>
                                 <tr><td><code>minDelay</code> (timelock)</td><td>24 hours</td><td class="wrap">Above 0, at most 14 days</td></tr>
@@ -1627,7 +1936,9 @@ l2protocol = "https://rpc.l2protocol.com"</code></pre>
                             </table>
                         </div>
                         <p>
-                            Proposals may only ever call <code>govHub</code>. That is fixed at genesis and is not a parameter.
+                            Proposals may only ever call <code>govHub</code>. That is fixed at genesis and is not a parameter,
+                            and neither is the 1,750,000,000 govL2P that has to exist before the first proposal can be
+                            submitted.
                         </p>
 
                         <h3 id="params-system-reward">System reward operators</h3>
@@ -1663,7 +1974,16 @@ l2protocol = "https://rpc.l2protocol.com"</code></pre>
                                 <tr><td><code>govToken</code></td><td class="mono">0x0000000000000000000000000000000000002005</td></tr>
                                 <tr><td><code>timelock</code></td><td class="mono">0x0000000000000000000000000000000000002006</td></tr>
                                 <tr><td><code>blsPrecompile</code></td><td class="mono">0x0000000000000000000000000000000000000066</td></tr>
+                                <tr><td><code>L2PPresale</code></td><td class="mono">0x0000000000000000000000000000000000003000</td></tr>
+                                <tr><td><code>WL2P</code></td><td class="mono">0x0000000000000000000000000000000000003001</td></tr>
+                                <tr><td><code>L2PVesting</code> (team)</td><td class="mono">0x0000000000000000000000000000000000003002</td></tr>
                                 <tr><td><code>Multicall3</code></td><td class="mono">0xcA11bde05977b3631167028862bE2a173976CA11</td></tr>
+                                <tr><td>ENS registry</td><td class="mono">0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e</td></tr>
+                                <tr><td>CreateX</td><td class="mono">0xba5Ed099633D3B313e4D5F7bdc1305d3c28ba5Ed</td></tr>
+                                <tr><td>Deterministic deployment proxy</td><td class="mono">0x4e59b44847b379578588920cA78FbF26c0B4956C</td></tr>
+                                <tr><td>Safe singleton factory</td><td class="mono">0x914d7Fec6aaC8cd542e72Bca78B30650d45643d7</td></tr>
+                                <tr><td>ERC-1820 registry</td><td class="mono">0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24</td></tr>
+                                <tr><td>ImmutableCreate2Factory</td><td class="mono">0x0000000000FFe8B47B3e2130213B802212439497</td></tr>
                                 <tr><td>Burn address</td><td class="mono">0x000000000000000000000000000000000000dEaD</td></tr>
                                 </tbody>
                             </table>
@@ -1690,9 +2010,14 @@ l2protocol = "https://rpc.l2protocol.com"</code></pre>
                                 <tr><td class="wrap">Staking and validators</td><td><a href="https://validators.l2protocol.com">https://validators.l2protocol.com</a></td></tr>
                                 <tr><td class="wrap">Governance</td><td><a href="https://governance.l2protocol.com">https://governance.l2protocol.com</a></td></tr>
                                 <tr><td class="wrap">Community vote</td><td><a href="https://voting.l2protocol.com">https://voting.l2protocol.com</a></td></tr>
+                                <tr><td class="wrap">Presale</td><td><a href="https://presale.l2protocol.com">https://presale.l2protocol.com</a></td></tr>
+                                <tr><td class="wrap"><code>.l2p</code> names</td><td><a href="https://names.l2protocol.com">https://names.l2protocol.com</a></td></tr>
                                 <tr><td class="wrap">The burn</td><td><a href="https://l2pburn.info">https://l2pburn.info</a></td></tr>
                                 <tr><td class="wrap">Network status</td><td><a href="https://l2stats.dev">https://l2stats.dev</a></td></tr>
                                 <tr><td class="wrap">Support</td><td><a href="https://support.l2protocol.com">https://support.l2protocol.com</a></td></tr>
+                                <tr><td class="wrap">This whitepaper</td><td><a href="https://whitepaper.l2protocol.com">https://whitepaper.l2protocol.com</a></td></tr>
+                                <tr><td class="wrap">Privacy policy</td><td><a href="https://legal.l2protocol.com/privacy">https://legal.l2protocol.com/privacy</a></td></tr>
+                                <tr><td class="wrap">Terms of use</td><td><a href="https://legal.l2protocol.com/terms">https://legal.l2protocol.com/terms</a></td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -1745,13 +2070,14 @@ l2protocol = "https://rpc.l2protocol.com"</code></pre>
                         <h2>Glossary</h2>
                         <dl class="glossary">
                             <dt>BLS key</dt><dd>The key a validator uses to sign finality votes, distinct from the account that signs blocks. Its public half is the validator's vote address.</dd>
+                            <dt>Breathe block</dt><dd>The first block after midnight UTC, at which the day's emission is paid and the validator set's daily housekeeping runs.</dd>
                             <dt>Burn address</dt><dd><code>0x...dEaD</code>, an address with no private key. Coins sent there can never be moved by any signature.</dd>
                             <dt>Cabinet</dt><dd>The subset of elected validators that actually produces blocks, capped by <code>numOfCabinets</code>.</dd>
                             <dt>Commission</dt><dd>The share of a delegator's rewards that the validator keeps.</dd>
                             <dt>Delegation</dt><dd>Bonding L2P behind a validator to share in what it earns and in what it risks.</dd>
                             <dt>Double sign</dt><dd>Signing two conflicting blocks. Treated as a felony, with the largest slash and the longest jail.</dd>
                             <dt>Elected set</dt><dd>The validators chosen each epoch by total stake, capped by <code>maxElectedValidators</code>. Stake behind a validator outside this set earns nothing.</dd>
-                            <dt>Emission</dt><dd>New L2P created per block and paid to validators, on the fixed schedule in <a href="#emissions">Section 8</a>.</dd>
+                            <dt>Emission</dt><dd>L2P paid out of the 20 billion emission pool once a day to the validators, as a capped yield on their stake, under the rule in <a href="#emissions">Section 8</a>. It creates no new coins: the pool was part of the supply from genesis.</dd>
                             <dt>Epoch</dt><dd>The interval at which the validator set is re-elected.</dd>
                             <dt>Felony</dt><dd>The severe class of misbehaviour: a double sign, or a malicious finality vote once that check is enabled.</dd>
                             <dt>Finalized</dt><dd>A block that is settled permanently and cannot be replaced.</dd>
@@ -1766,8 +2092,10 @@ l2protocol = "https://rpc.l2protocol.com"</code></pre>
                             <dt>Snapshot block</dt><dd>The block at which voting weight is measured for a proposal. Coins acquired afterwards do not vote on it.</dd>
                             <dt>Stake credit</dt><dd>A delegator's share of a validator's pool.</dd>
                             <dt>Self-delegation</dt><dd>The L2P a validator bonds of its own, and the first thing slashed when it misbehaves.</dd>
+                            <dt>Target stake</dt><dd>The most stake the emission yield is paid on, 30 billion L2P at genesis. Above it the total paid stays the same and the yield per staked coin falls.</dd>
                             <dt>Timelock</dt><dd>The mandatory delay between a proposal passing and anyone being able to execute it.</dd>
                             <dt>Unbond period</dt><dd>The waiting time between undelegating and being able to claim the coins.</dd>
+                            <dt>Vesting contract</dt><dd>A contract that holds L2P for one beneficiary and releases it on a fixed schedule that cannot be changed or revoked. The team allocation and each advisor's coins are held this way.</dd>
                             <dt>wei</dt><dd>The smallest unit of L2P. One L2P is 10<sup>18</sup> wei.</dd>
                         </dl>
                     </section>
