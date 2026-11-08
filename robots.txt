@@ -1,4 +1,2 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://whitepaper.l2protocol.com/sitemap.xml
