@@ -42,7 +42,7 @@
             <img src="/images/icon-dark.svg" class="dark" alt="L2 Protocol" width="30" height="30">
             <span class="ps-2 brand-text text-nowrap">L2 Protocol</span>
         </a>
-        <span class="eyebrow d-none d-md-inline">Litepaper &middot; Marketing communication</span>
+        <span class="doc-kind d-none d-md-inline">Litepaper</span>
 
         <div class="ms-auto d-flex align-items-center gap-2">
             <a href="https://presale.l2protocol.com" class="nav-link d-none d-lg-inline px-2">Presale</a>
@@ -59,37 +59,54 @@
 <main id="main-content" tabindex="-1">
     <section class="hero">
         <div class="container-fluid px-3 px-lg-4">
-            <span class="eyebrow hero-eyebrow">Marketing communication &middot; Litepaper &middot; Version 1.0 &middot; 8 November 2026</span>
-            <h1>The L2P presale, in brief</h1>
-            <p class="hero-lead">
-                L2 Protocol operates layer 2 blockchains for other crypto projects. This litepaper sets out who is
-                offering L2P in the presale, what you get for your money, on which terms, how you can change your mind,
-                and what can go wrong.
-            </p>
-            <div class="hero-actions">
-                <a href="#status" class="btn btn-primary btn-lg">Start reading</a>
-                <button type="button" class="btn btn-hero-ghost btn-lg" data-print>
-                    <i class="fa-solid fa-file-arrow-down me-2" aria-hidden="true"></i>Print or save as PDF
-                </button>
+            <div class="hero-grid">
+                <div class="hero-intro">
+                    <p class="hero-meta">Litepaper for the L2P presale, version 1.0 of 8 November 2026</p>
+                    <h1>The L2P presale, in brief</h1>
+                    <p class="hero-lead">
+                        L2 Protocol operates layer 2 blockchains for other crypto projects. This litepaper sets out who is
+                        offering L2P in the presale, what you get for your money, on which terms, how you can change your
+                        mind, and what can go wrong.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#status" class="btn btn-primary btn-lg">Start reading</a>
+                        <button type="button" class="btn btn-hero-ghost btn-lg" data-print>
+                            <i class="fa-solid fa-file-arrow-down me-2" aria-hidden="true"></i>Print or save as PDF
+                        </button>
+                    </div>
+                </div>
+                <aside class="hero-notice" aria-labelledby="hero-notice-kind">
+                    <p class="hero-notice-kind" id="hero-notice-kind">Marketing communication</p>
+                    <p class="hero-notice-statement" lang="en">
+                        This crypto-asset marketing communication has not been reviewed or approved by any competent
+                        authority in any Member State of the European Union. The offeror of the crypto-asset is solely
+                        responsible for the content of this crypto-asset marketing communication.
+                    </p>
+                    <p class="hero-notice-statement hero-notice-statement-nl" lang="nl">
+                        Deze reclame-uiting voor cryptoactiva is niet getoetst of goedgekeurd door een bevoegde autoriteit
+                        in een lidstaat van de Europese Unie. De aanbieder van het cryptoactivum is als enige
+                        verantwoordelijk voor de inhoud van deze reclame-uiting.
+                    </p>
+                </aside>
             </div>
-            <div class="hero-facts">
-                <div class="hero-fact">
-                    <span class="hero-fact-label">Price per L2P</span>
-                    <span class="hero-fact-value">$0.0001<small>Era 1, fixed per era in USD</small></span>
+            <dl class="hero-terms">
+                <div class="hero-term">
+                    <dt>Price per L2P</dt>
+                    <dd>$0.00010 in era 1, rising to $0.00014 in era 5</dd>
                 </div>
-                <div class="hero-fact">
-                    <span class="hero-fact-label">Duration</span>
-                    <span class="hero-fact-value">365 days<small>Five eras of 73 days</small></span>
+                <div class="hero-term">
+                    <dt>Duration</dt>
+                    <dd>365 days, in five eras of 73 days</dd>
                 </div>
-                <div class="hero-fact">
-                    <span class="hero-fact-label">Most it can raise</span>
-                    <span class="hero-fact-value">$900,000<small>All five eras sold</small></span>
+                <div class="hero-term">
+                    <dt>Most it can raise</dt>
+                    <dd>$900,000, if every era sells out</dd>
                 </div>
-                <div class="hero-fact">
-                    <span class="hero-fact-label">Withdrawal</span>
-                    <span class="hero-fact-value">14 days<small>Free of charge, no reason needed</small></span>
+                <div class="hero-term">
+                    <dt>Changing your mind</dt>
+                    <dd>Within 14 days, free and without a reason</dd>
                 </div>
-            </div>
+            </dl>
         </div>
     </section>
 
@@ -101,12 +118,7 @@
         <div class="doc-shell">
             <nav class="doc-rail d-print-none" id="doc-rail" aria-label="Table of contents">
                 <div class="rail-section">
-                    <div class="rail-heading"><i class="fa-solid fa-circle-info" aria-hidden="true"></i>Read this first</div>
-                    <a class="rail-link" href="#status"><span class="rail-num">&middot;</span><span>What this document is</span></a>
-                </div>
-
-                <div class="rail-section">
-                    <div class="rail-heading"><i class="fa-solid fa-file-lines" aria-hidden="true"></i>The presale</div>
+                    <a class="rail-link" href="#status"><span class="rail-num" aria-hidden="true"></span><span>What this document is</span></a>
                     <a class="rail-link" href="#offeror"><span class="rail-num">1</span><span>Who is offering it</span></a>
                     <a class="rail-link" href="#what-you-buy"><span class="rail-num">2</span><span>What you are buying</span></a>
                     <a class="rail-link" href="#terms"><span class="rail-num">3</span><span>The terms</span></a>
@@ -127,25 +139,7 @@
             <div class="doc-main">
                 <article class="doc-body">
                     <section class="doc-section" id="status">
-                        <span class="section-num">Read this first</span>
                         <h2>What this document is</h2>
-                        <div class="callout callout-warning">
-                            <span class="callout-icon"><i class="fa-solid fa-bullhorn" aria-hidden="true"></i></span>
-                            <div class="callout-body">
-                                <span class="callout-title">Marketing communication</span>
-                                <p>
-                                    <strong>This crypto-asset marketing communication has not been reviewed or approved by
-                                    any competent authority in any Member State of the European Union. The offeror of the
-                                    crypto-asset is solely responsible for the content of this crypto-asset marketing
-                                    communication.</strong>
-                                </p>
-                                <p lang="nl" class="mb-0">
-                                    <strong>Deze reclame-uiting voor cryptoactiva is niet getoetst of goedgekeurd door een
-                                    bevoegde autoriteit in een lidstaat van de Europese Unie. De aanbieder van het
-                                    cryptoactivum is als enige verantwoordelijk voor de inhoud van deze reclame-uiting.</strong>
-                                </p>
-                            </div>
-                        </div>
                         <p>
                             This litepaper is a marketing communication for the L2P presale. It is
                             <strong>not a crypto-asset white paper</strong> within the meaning of Regulation (EU) 2023/1114
@@ -166,8 +160,7 @@
                     </section>
 
                     <section class="doc-section" id="offeror">
-                        <span class="section-num">1</span>
-                        <h2>Who is offering it</h2>
+                        <h2><span class="section-num">1</span>Who is offering it</h2>
                         <div class="table-scroll">
                             <table>
                                 <tbody>
@@ -183,8 +176,7 @@
                     </section>
 
                     <section class="doc-section" id="what-you-buy">
-                        <span class="section-num">2</span>
-                        <h2>What you are buying</h2>
+                        <h2><span class="section-num">2</span>What you are buying</h2>
                         <p>
                             <strong>What it is.</strong> L2P is the native coin of the L2 Protocol chain (chain ID 12216).
                             It is used to pay transaction fees, to stake and delegate behind a validator, and to vote in the
@@ -204,8 +196,7 @@
                     </section>
 
                     <section class="doc-section" id="terms">
-                        <span class="section-num">3</span>
-                        <h2>The terms</h2>
+                        <h2><span class="section-num">3</span>The terms</h2>
 
                         <h3 id="price">3.1 Price per era</h3>
                         <p>
@@ -289,8 +280,7 @@
                     </section>
 
                     <section class="doc-section" id="withdrawal">
-                        <span class="section-num">4</span>
-                        <h2>Changing your mind</h2>
+                        <h2><span class="section-num">4</span>Changing your mind</h2>
                         <p>
                             If you buy as a private individual, you can withdraw from your purchase within
                             <strong>14 calendar days</strong>, free of charge and without giving a reason. The 14 days start
@@ -314,8 +304,7 @@
                     </section>
 
                     <section class="doc-section" id="risks">
-                        <span class="section-num">5</span>
-                        <h2>Risks</h2>
+                        <h2><span class="section-num">5</span>Risks</h2>
                         <p>Buy only what you can afford to lose entirely. In particular:</p>
                         <ul>
                             <li><strong>You can lose everything.</strong> The value of L2P can fall to zero.</li>
@@ -331,8 +320,7 @@
                     </section>
 
                     <section class="doc-section" id="proceeds">
-                        <span class="section-num">6</span>
-                        <h2>What the money is for</h2>
+                        <h2><span class="section-num">6</span>What the money is for</h2>
                         <p>
                             The proceeds pay for the development of the protocol and its applications, the infrastructure
                             the chain and its sites run on, and the operation of the first validators.
@@ -342,8 +330,7 @@
                     </section>
 
                     <section class="doc-section" id="links">
-                        <span class="section-num">7</span>
-                        <h2>Official links</h2>
+                        <h2><span class="section-num">7</span>Official links</h2>
                         <p>
                             If a site or channel is not on this list, it is not ours. Nobody from L2 Protocol will contact you
                             first, ask for your seed phrase or offer to sell you L2P privately.
@@ -370,8 +357,8 @@
                 </article>
 
                 <p class="doc-foot-note">
-                    L2 Protocol &middot; Litepaper, version 1.0, 8 November 2026 &middot; Marketing communication<br>
-                    Not reviewed or approved by any competent authority. The offeror is solely responsible for its content.
+                    L2 Protocol litepaper, version 1.0 of 8 November 2026. A marketing communication: not reviewed or
+                    approved by any competent authority; the offeror is solely responsible for its content.
                 </p>
             </div>
         </div>

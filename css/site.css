@@ -51,17 +51,6 @@ html[data-bs-theme=dark] .brand-text {
     font-feature-settings: "tnum";
 }
 
-.eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: var(--bs-primary);
-}
-
 .skip-link {
     position: absolute;
     left: 0.75rem;
@@ -148,10 +137,6 @@ html[data-bs-theme=dark] .hero {
         linear-gradient(158deg, color-mix(in srgb, var(--wp-ink-2) 55%, var(--bs-body-bg)), var(--bs-body-bg));
 }
 
-.hero-eyebrow {
-    color: color-mix(in srgb, var(--wp-glow) 55%, #fff);
-}
-
 .hero h1 {
     font-weight: 800;
     line-height: 1.06;
@@ -172,7 +157,6 @@ html[data-bs-theme=dark] .hero {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
-    margin-bottom: 2.75rem;
 }
 
 .btn-hero-ghost {
@@ -190,64 +174,105 @@ html[data-bs-theme=dark] .hero {
     font-weight: 500;
 }
 
-.hero-facts {
+.hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 3rem;
+    align-items: end;
+}
+
+.hero-meta {
+    margin: 0;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.62);
+}
+
+.hero-notice {
+    padding: 1.5rem 1.6rem 1.4rem;
+    border-left: 3px solid var(--wp-glow);
+    border-radius: 0 0.9rem 0.9rem 0;
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.hero-notice-kind {
+    margin: 0 0 0.65rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: color-mix(in srgb, var(--wp-glow) 60%, #fff);
+}
+
+.hero-notice-statement {
+    margin: 0;
+    font-family: var(--wp-display);
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.55;
+    color: #fff;
+}
+
+.hero-notice-statement-nl {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.66);
+}
+
+.hero-terms {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1px;
-    background-color: rgba(255, 255, 255, 0.14);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 1rem;
-    overflow: hidden;
+    gap: 1.25rem 2rem;
+    margin: 2.75rem 0 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
 }
 
-.hero-fact {
-    padding: 1.15rem 1.25rem;
-    background-color: color-mix(in srgb, var(--wp-ink) 55%, transparent);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-}
-
-.hero-fact-label {
-    display: block;
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: rgba(255, 255, 255, 0.55);
-    margin-bottom: 0.35rem;
-}
-
-.hero-fact-value {
-    display: block;
-    font-family: var(--wp-display);
-    font-size: 1.35rem;
-    font-weight: 700;
-    line-height: 1.15;
-    font-variant-numeric: tabular-nums;
-    overflow-wrap: anywhere;
-}
-
-.hero-fact-value small {
-    display: block;
-    font-family: var(--wp-mono);
-    font-size: 0.7rem;
+.hero-term dt {
+    margin-bottom: 0.3rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.55);
-    margin-top: 0.3rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.hero-term dd {
+    margin: 0;
+    line-height: 1.45;
+    color: #fff;
+    font-variant-numeric: tabular-nums;
 }
 
 @media (max-width: 991.98px) {
-    .hero-facts {
+    .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2rem;
+    }
+
+    .hero-terms {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (max-width: 479.98px) {
-    .hero-facts {
+    .hero-terms {
         grid-template-columns: minmax(0, 1fr);
     }
+
+    .hero-notice {
+        padding: 1.25rem 1.2rem 1.15rem;
+    }
+
+    .hero-notice-statement {
+        font-size: 1rem;
+    }
+}
+
+.doc-kind {
+    padding-left: 0.85rem;
+    border-left: 1px solid var(--bs-border-color);
+    font-size: 0.95rem;
+    color: var(--bs-secondary-color);
 }
 
 /* --- Shell --- */
@@ -311,7 +336,7 @@ html[data-bs-theme=dark] .hero {
 }
 
 .rail-num {
-    flex: 0 0 auto;
+    flex: 0 0 0.7em;
     font-family: var(--wp-mono);
     font-size: 0.78rem;
     line-height: 1.65;
@@ -396,14 +421,10 @@ html[data-bs-theme=dark] .hero {
 }
 
 .section-num {
-    display: block;
-    font-family: var(--wp-mono);
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+    display: inline-block;
+    margin-right: 0.6rem;
     color: var(--bs-primary);
-    margin-bottom: 0.5rem;
+    font-variant-numeric: tabular-nums;
 }
 
 .head-anchor {
@@ -546,10 +567,8 @@ h3:hover .head-anchor,
 
 .doc-body th {
     font-weight: 600;
+    font-size: 0.88rem;
     color: var(--bs-secondary-color);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-size: 0.74rem;
 }
 
 .doc-body td.num {
@@ -844,20 +863,26 @@ h3:hover .head-anchor,
     }
 
     .hero-lead,
-    .hero-eyebrow,
-    .hero-fact-label,
-    .hero-fact-value small {
+    .hero-meta,
+    .hero-term dt,
+    .hero-notice-statement-nl {
         color: #444 !important;
     }
 
-    .hero-facts {
-        border-color: #ccc;
-        background-color: #fff;
+    .hero-notice-kind,
+    .hero-notice-statement,
+    .hero-term dd {
+        color: #000 !important;
     }
 
-    .hero-fact {
-        background-color: #fff;
-        border: 1px solid #eee;
+    .hero-notice {
+        background: none;
+        border-left-color: #000;
+        break-inside: avoid;
+    }
+
+    .hero-terms {
+        border-top-color: #ccc;
     }
 
     .doc-shell {
